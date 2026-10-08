@@ -1,0 +1,2261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Vehicle Rental System</title>
+
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- Font -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+
+        /* =====================================================
+           GLOBAL
+           ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                "Inter",
+                Arial,
+                sans-serif;
+
+            color: #ffffff;
+
+            overflow-x: hidden;
+
+            background:
+
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(
+                        24,
+                        199,
+                        255,
+                        0.14
+                    ),
+                    transparent 27%
+                ),
+
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(
+                        166,
+                        53,
+                        255,
+                        0.15
+                    ),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(
+                        231,
+                        54,
+                        184,
+                        0.08
+                    ),
+                    transparent 30%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #030711,
+                    #071124,
+                    #09071d
+                );
+
+            animation:
+                pageFade 0.7s ease;
+        }
+
+
+        @keyframes pageFade {
+
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+           ===================================================== */
+
+        .top-navbar {
+
+            position:
+                sticky;
+
+            top:
+                0;
+
+            width:
+                100%;
+
+            height:
+                72px;
+
+            z-index:
+                9999;
+
+            background:
+                rgba(
+                    3,
+                    7,
+                    17,
+                    0.86
+                );
+
+            backdrop-filter:
+                blur(18px);
+
+            border-bottom:
+                1px solid
+                rgba(
+                    90,
+                    193,
+                    255,
+                    0.10
+                );
+        }
+
+
+        .nav-inner {
+
+            width:
+                min(
+                    1380px,
+                    calc(100% - 70px)
+                );
+
+            height:
+                100%;
+
+            margin:
+                auto;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+        }
+
+
+        .brand-logo {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                9px;
+
+            color:
+                #ffffff;
+
+            font-size:
+                17px;
+
+            font-weight:
+                800;
+
+            white-space:
+                nowrap;
+        }
+
+
+        .brand-icon {
+
+            color:
+                #3bd4ff;
+
+            font-size:
+                22px;
+
+            filter:
+                drop-shadow(
+                    0 0 10px
+                    rgba(
+                        59,
+                        212,
+                        255,
+                        0.72
+                    )
+                );
+        }
+
+
+        .nav-links {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                42px;
+        }
+
+
+        .nav-links a {
+
+            color:
+                #ffffff;
+
+            font-size:
+                14px;
+
+            font-weight:
+                500;
+
+            position:
+                relative;
+
+            transition:
+                color 0.25s ease;
+        }
+
+
+        .nav-links a:hover {
+
+            color:
+                #4bd6ff;
+        }
+
+
+        .nav-links a.active {
+
+            color:
+                #4bd6ff;
+        }
+
+
+        .nav-links a.active::after {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            left:
+                0;
+
+            right:
+                0;
+
+            bottom:
+                -21px;
+
+            height:
+                2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #13c8ff,
+                    #7848ff
+                );
+
+            box-shadow:
+                0 0 12px
+                rgba(
+                    25,
+                    200,
+                    255,
+                    0.72
+                );
+        }
+
+
+        .nav-register {
+
+            color:
+                #ffffff;
+
+            padding:
+                10px 20px;
+
+            border-radius:
+                10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a33cff,
+                    #167fff
+                );
+
+            font-size:
+                13px;
+
+            font-weight:
+                700;
+
+            box-shadow:
+                0 8px 23px
+                rgba(
+                    60,
+                    106,
+                    255,
+                    0.28
+                );
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .nav-register:hover {
+
+            color:
+                #ffffff;
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 14px 32px
+                rgba(
+                    60,
+                    106,
+                    255,
+                    0.40
+                );
+        }
+
+
+        /* =====================================================
+           LOGIN PAGE
+           ===================================================== */
+
+        .login-page {
+
+            min-height:
+                calc(
+                    100vh - 72px
+                );
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                55px 20px;
+
+            position:
+                relative;
+
+            overflow:
+                hidden;
+        }
+
+
+        .login-page::before {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            width:
+                380px;
+
+            height:
+                380px;
+
+            border-radius:
+                50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(
+                        32,
+                        202,
+                        255,
+                        0.13
+                    ),
+                    transparent 70%
+                );
+
+            filter:
+                blur(18px);
+
+            left:
+                -100px;
+
+            top:
+                120px;
+
+            animation:
+                bubbleMove 7s
+                ease-in-out
+                infinite;
+        }
+
+
+        .login-page::after {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            width:
+                340px;
+
+            height:
+                340px;
+
+            border-radius:
+                50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(
+                        165,
+                        51,
+                        255,
+                        0.14
+                    ),
+                    transparent 70%
+                );
+
+            filter:
+                blur(20px);
+
+            right:
+                -90px;
+
+            bottom:
+                70px;
+
+            animation:
+                bubbleMoveReverse 8s
+                ease-in-out
+                infinite;
+        }
+
+
+        @keyframes bubbleMove {
+
+            0%,
+            100% {
+                transform:
+                    translate(
+                        0,
+                        0
+                    );
+            }
+
+            50% {
+                transform:
+                    translate(
+                        40px,
+                        30px
+                    );
+            }
+
+        }
+
+
+        @keyframes bubbleMoveReverse {
+
+            0%,
+            100% {
+                transform:
+                    translate(
+                        0,
+                        0
+                    );
+            }
+
+            50% {
+                transform:
+                    translate(
+                        -35px,
+                        -25px
+                    );
+            }
+
+        }
+
+
+        /* =====================================================
+           LOGIN CONTAINER
+           ===================================================== */
+
+        .login-container {
+
+            width:
+                min(
+                    1050px,
+                    100%
+                );
+
+            min-height:
+                610px;
+
+            display:
+                grid;
+
+            grid-template-columns:
+                46% 54%;
+
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            border-radius:
+                28px;
+
+            overflow:
+                hidden;
+
+            background:
+                rgba(
+                    6,
+                    12,
+                    28,
+                    0.92
+                );
+
+            border:
+                1px solid
+                rgba(
+                    100,
+                    130,
+                    181,
+                    0.15
+                );
+
+            box-shadow:
+                0 30px 80px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.42
+                );
+
+            backdrop-filter:
+                blur(18px);
+
+            animation:
+                containerEnter 0.8s ease;
+        }
+
+
+        @keyframes containerEnter {
+
+            from {
+
+                opacity:
+                    0;
+
+                transform:
+                    translateY(35px)
+                    scale(0.98);
+            }
+
+            to {
+
+                opacity:
+                    1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
+        }
+
+
+        /* =====================================================
+           LEFT PANEL
+           ===================================================== */
+
+        .login-showcase {
+
+            position:
+                relative;
+
+            overflow:
+                hidden;
+
+            padding:
+                55px 48px;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            justify-content:
+                space-between;
+
+            background:
+
+                radial-gradient(
+                    circle at 80% 25%,
+                    rgba(
+                        32,
+                        185,
+                        255,
+                        0.17
+                    ),
+                    transparent 35%
+                ),
+
+                radial-gradient(
+                    circle at 25% 85%,
+                    rgba(
+                        150,
+                        48,
+                        255,
+                        0.15
+                    ),
+                    transparent 34%
+                ),
+
+                linear-gradient(
+                    145deg,
+                    #071426,
+                    #0a0920
+                );
+        }
+
+
+        .login-showcase::before {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            width:
+                230px;
+
+            height:
+                230px;
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(
+                    40,
+                    201,
+                    255,
+                    0.08
+                );
+
+            filter:
+                blur(30px);
+
+            right:
+                -70px;
+
+            top:
+                -60px;
+        }
+
+
+        .showcase-content {
+
+            position:
+                relative;
+
+            z-index:
+                2;
+        }
+
+
+        .showcase-pill {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                8px;
+
+            padding:
+                8px 14px;
+
+            border-radius:
+                30px;
+
+            background:
+                rgba(
+                    26,
+                    53,
+                    80,
+                    0.62
+                );
+
+            border:
+                1px solid
+                rgba(
+                    72,
+                    211,
+                    255,
+                    0.18
+                );
+
+            color:
+                #bceaff;
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                2px;
+        }
+
+
+        .showcase-pill::before {
+
+            content:
+                "";
+
+            width:
+                7px;
+
+            height:
+                7px;
+
+            border-radius:
+                50%;
+
+            background:
+                #3ad5ff;
+
+            box-shadow:
+                0 0 13px
+                rgba(
+                    58,
+                    213,
+                    255,
+                    0.80
+                );
+        }
+
+
+        .showcase-content h1 {
+
+            margin-top:
+                22px;
+
+            font-size:
+                clamp(
+                    42px,
+                    5vw,
+                    65px
+                );
+
+            line-height:
+                0.98;
+
+            letter-spacing:
+                -3px;
+
+            font-weight:
+                900;
+        }
+
+
+        .showcase-content h1 span {
+
+            display:
+                block;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #43d8ff,
+                    #774bff,
+                    #e33fff
+                );
+
+            -webkit-background-clip:
+                text;
+
+            background-clip:
+                text;
+
+            color:
+                transparent;
+        }
+
+
+        .showcase-description {
+
+            color:
+                #aeb9c9;
+
+            font-size:
+                13px;
+
+            line-height:
+                1.75;
+
+            margin-top:
+                20px;
+
+            max-width:
+                430px;
+        }
+
+
+        /* =====================================================
+           LOGIN SHOWCASE FEATURES
+           ===================================================== */
+
+        .showcase-features {
+
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                12px;
+
+            margin-top:
+                25px;
+        }
+
+
+        .showcase-feature {
+
+            padding:
+                15px;
+
+            border-radius:
+                14px;
+
+            background:
+                rgba(
+                    12,
+                    25,
+                    48,
+                    0.63
+                );
+
+            border:
+                1px solid
+                rgba(
+                    105,
+                    132,
+                    181,
+                    0.13
+                );
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+
+        .showcase-feature:hover {
+
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(
+                    67,
+                    205,
+                    255,
+                    0.30
+                );
+        }
+
+
+        .feature-icon {
+
+            font-size:
+                20px;
+
+            color:
+                #42d4ff;
+
+            margin-bottom:
+                7px;
+
+            text-shadow:
+                0 0 12px
+                rgba(
+                    66,
+                    212,
+                    255,
+                    0.45
+                );
+        }
+
+
+        .showcase-feature strong {
+
+            display:
+                block;
+
+            font-size:
+                12px;
+        }
+
+
+        .showcase-feature small {
+
+            color:
+                #7d8a9e;
+
+            font-size:
+                9px;
+        }
+
+
+        /* =====================================================
+           RIGHT LOGIN PANEL
+           ===================================================== */
+
+        .login-panel {
+
+            padding:
+                55px 58px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            background:
+                rgba(
+                    3,
+                    8,
+                    19,
+                    0.78
+                );
+        }
+
+
+        .login-form-wrapper {
+
+            width:
+                100%;
+
+            max-width:
+                420px;
+        }
+
+
+        .form-title {
+
+            font-size:
+                32px;
+
+            font-weight:
+                900;
+
+            margin-bottom:
+                7px;
+        }
+
+
+        .form-subtitle {
+
+            color:
+                #7f8b9e;
+
+            font-size:
+                13px;
+
+            line-height:
+                1.6;
+
+            margin-bottom:
+                30px;
+        }
+
+
+        /* =====================================================
+           INPUTS
+           ===================================================== */
+
+        .form-group {
+
+            margin-bottom:
+                20px;
+        }
+
+
+        .form-group label {
+
+            display:
+                block;
+
+            margin-bottom:
+                8px;
+
+            color:
+                #dce5f4;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+        }
+
+
+        .input-wrapper {
+
+            position:
+                relative;
+        }
+
+
+        .input-icon {
+
+            position:
+                absolute;
+
+            top:
+                50%;
+
+            left:
+                16px;
+
+            transform:
+                translateY(
+                    -50%
+                );
+
+            color:
+                #4ed1ff;
+
+            font-size:
+                16px;
+
+            pointer-events:
+                none;
+        }
+
+
+        .form-control-custom {
+
+            width:
+                100%;
+
+            height:
+                51px;
+
+            border:
+                1px solid
+                rgba(
+                    107,
+                    131,
+                    176,
+                    0.19
+                );
+
+            border-radius:
+                12px;
+
+            outline:
+                none;
+
+            color:
+                #ffffff;
+
+            background:
+                rgba(
+                    12,
+                    22,
+                    40,
+                    0.84
+                );
+
+            padding:
+                0 15px 0 46px;
+
+            font-size:
+                13px;
+
+            transition:
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+
+        .form-control-custom::placeholder {
+
+            color:
+                #67758a;
+        }
+
+
+        .form-control-custom:focus {
+
+            border-color:
+                #48cfff;
+
+            background:
+                rgba(
+                    12,
+                    24,
+                    45,
+                    0.96
+                );
+
+            box-shadow:
+                0 0 0 4px
+                rgba(
+                    51,
+                    202,
+                    255,
+                    0.09
+                );
+        }
+
+
+        /* =====================================================
+           LOGIN BUTTON
+           ===================================================== */
+
+        .login-submit {
+
+            width:
+                100%;
+
+            height:
+                52px;
+
+            border:
+                none;
+
+            border-radius:
+                12px;
+
+            color:
+                white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ab3eff,
+                    #177fff,
+                    #09c9ff
+                );
+
+            font-size:
+                14px;
+
+            font-weight:
+                800;
+
+            cursor:
+                pointer;
+
+            box-shadow:
+                0 12px 28px
+                rgba(
+                    40,
+                    111,
+                    255,
+                    0.28
+                );
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                opacity 0.25s ease;
+        }
+
+
+        .login-submit:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 16px 35px
+                rgba(
+                    40,
+                    111,
+                    255,
+                    0.42
+                );
+        }
+
+
+        .login-submit:disabled {
+
+            opacity:
+                0.60;
+
+            cursor:
+                not-allowed;
+
+            transform:
+                none;
+
+            box-shadow:
+                none;
+        }
+
+
+        /* =====================================================
+           ERROR MESSAGE
+           ===================================================== */
+
+        .login-message {
+
+            display:
+                none;
+
+            margin-bottom:
+                20px;
+
+            padding:
+                13px 15px;
+
+            border-radius:
+                12px;
+
+            color:
+                #ffcbd3;
+
+            background:
+                rgba(
+                    225,
+                    52,
+                    83,
+                    0.10
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    81,
+                    105,
+                    0.20
+                );
+
+            font-size:
+                12px;
+
+            line-height:
+                1.5;
+
+            animation:
+                messageIn 0.35s ease;
+        }
+
+
+        .login-message.success {
+
+            color:
+                #baffea;
+
+            background:
+                rgba(
+                    16,
+                    185,
+                    129,
+                    0.10
+                );
+
+            border-color:
+                rgba(
+                    16,
+                    185,
+                    129,
+                    0.20
+                );
+        }
+
+
+        @keyframes messageIn {
+
+            from {
+
+                opacity:
+                    0;
+
+                transform:
+                    translateY(
+                        -8px
+                    );
+            }
+
+            to {
+
+                opacity:
+                    1;
+
+                transform:
+                    translateY(
+                        0
+                    );
+            }
+
+        }
+
+
+        /* =====================================================
+           REGISTER LINK
+           ===================================================== */
+
+        .register-text {
+
+            margin-top:
+                25px;
+
+            text-align:
+                center;
+
+            color:
+                #78869a;
+
+            font-size:
+                12px;
+        }
+
+
+        .register-text a {
+
+            color:
+                #52d5ff;
+
+            font-weight:
+                700;
+        }
+
+
+        .register-text a:hover {
+
+            color:
+                #a26aff;
+        }
+
+
+        /* =====================================================
+           BACK LINK
+           ===================================================== */
+
+        .back-link {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                7px;
+
+            margin-top:
+                22px;
+
+            color:
+                #68768a;
+
+            font-size:
+                11px;
+
+            transition:
+                color 0.25s ease;
+        }
+
+
+        .back-link:hover {
+
+            color:
+                #4fd5ff;
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .login-container {
+
+                grid-template-columns:
+                    1fr;
+
+                max-width:
+                    580px;
+            }
+
+
+            .login-showcase {
+
+                min-height:
+                    360px;
+
+                padding:
+                    42px;
+            }
+
+
+            .login-panel {
+
+                padding:
+                    42px;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .nav-inner {
+
+                width:
+                    calc(
+                        100% - 28px
+                    );
+            }
+
+
+            .nav-links {
+
+                display:
+                    none;
+            }
+
+
+            .nav-register {
+
+                padding:
+                    9px 15px;
+
+                font-size:
+                    12px;
+            }
+
+
+            .login-page {
+
+                padding:
+                    25px 14px;
+            }
+
+
+            .login-showcase {
+
+                padding:
+                    32px 25px;
+            }
+
+
+            .login-panel {
+
+                padding:
+                    35px 25px;
+            }
+
+
+            .showcase-content h1 {
+
+                font-size:
+                    45px;
+            }
+
+
+            .showcase-features {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+         ===================================================== -->
+
+    <nav class="top-navbar">
+
+        <div class="nav-inner">
+
+
+            <a
+                href="index.html"
+                class="brand-logo">
+
+                <span class="brand-icon">
+                    🚘
+                </span>
+
+                Vehicle Rental System
+
+            </a>
+
+
+            <div class="nav-links">
+
+
+                <a
+                    href="index.html">
+
+                    Home
+
+                </a>
+
+
+                <a
+                    href="vehicles.html">
+
+                    Vehicles
+
+                </a>
+
+
+                <a
+                    href="login.html"
+                    class="active">
+
+                    Login
+
+                </a>
+
+            </div>
+
+
+            <a
+                href="register.html"
+                class="nav-register">
+
+                Register
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         LOGIN PAGE
+         ===================================================== -->
+
+    <main class="login-page">
+
+
+        <div class="login-container">
+
+
+            <!-- =================================================
+                 LEFT SHOWCASE
+                 ================================================= -->
+
+            <section class="login-showcase">
+
+
+                <div class="showcase-content">
+
+
+                    <div class="showcase-pill">
+
+                        VEHICLE RENTAL SYSTEM
+
+                    </div>
+
+
+                    <h1>
+
+                        Welcome
+
+                        <span>
+                            Back.
+                        </span>
+
+                    </h1>
+
+
+                    <p class="showcase-description">
+
+                        Sign in to access your vehicle
+                        rentals, bookings and account
+                        information.
+
+                    </p>
+
+
+                    <div class="showcase-features">
+
+
+                        <div class="showcase-feature">
+
+                            <div class="feature-icon">
+                                🚘
+                            </div>
+
+                            <strong>
+                                Premium Vehicles
+                            </strong>
+
+                            <small>
+                                Explore available vehicles
+                            </small>
+
+                        </div>
+
+
+                        <div class="showcase-feature">
+
+                            <div class="feature-icon">
+                                📅
+                            </div>
+
+                            <strong>
+                                Easy Booking
+                            </strong>
+
+                            <small>
+                                Manage your rental dates
+                            </small>
+
+                        </div>
+
+
+                        <div class="showcase-feature">
+
+                            <div class="feature-icon">
+                                💳
+                            </div>
+
+                            <strong>
+                                Simple Payment
+                            </strong>
+
+                            <small>
+                                Complete your booking easily
+                            </small>
+
+                        </div>
+
+
+                        <div class="showcase-feature">
+
+                            <div class="feature-icon">
+                                ✓
+                            </div>
+
+                            <strong>
+                                Booking History
+                            </strong>
+
+                            <small>
+                                View your previous bookings
+                            </small>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 LOGIN FORM
+                 ================================================= -->
+
+            <section class="login-panel">
+
+
+                <div class="login-form-wrapper">
+
+
+                    <h2 class="form-title">
+
+                        Login
+
+                    </h2>
+
+
+                    <p class="form-subtitle">
+
+                        Enter your account details
+                        to continue.
+
+                    </p>
+
+
+                    <!-- MESSAGE -->
+
+                    <div
+                        id="loginMessage"
+                        class="login-message">
+
+                    </div>
+
+
+
+                    <!-- FORM -->
+
+                    <form id="loginForm">
+
+
+                        <!-- EMAIL -->
+
+                        <div class="form-group">
+
+
+                            <label
+                                for="email">
+
+                                Email Address
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+
+                                <span class="input-icon">
+                                    ✉
+                                </span>
+
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    class="form-control-custom"
+                                    placeholder="Enter your email"
+                                    autocomplete="email"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- PASSWORD -->
+
+                        <div class="form-group">
+
+
+                            <label
+                                for="password">
+
+                                Password
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+
+                                <span class="input-icon">
+                                    🔒
+                                </span>
+
+
+                                <input
+                                    type="password"
+                                    id="password"
+                                    class="form-control-custom"
+                                    placeholder="Enter your password"
+                                    autocomplete="current-password"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- SUBMIT -->
+
+                        <button
+                            type="submit"
+                            id="loginButton"
+                            class="login-submit">
+
+                            Login to Account
+
+                        </button>
+
+
+                    </form>
+
+
+
+                    <!-- REGISTER -->
+
+                    <div class="register-text">
+
+                        Don't have an account?
+
+                        <a
+                            href="register.html">
+
+                            Create an account
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- BACK -->
+
+                    <a
+                        href="index.html"
+                        class="back-link">
+
+                        ← Back to Home
+
+                    </a>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- Bootstrap -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+
+    <!-- =====================================================
+         LOGIN JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+
+        // =================================================
+        // VEHICLE ID
+        // =================================================
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const vehicleId =
+            urlParams.get(
+                "vehicleId"
+            );
+
+
+
+        // =================================================
+        // ELEMENTS
+        // =================================================
+
+        const loginForm =
+            document.getElementById(
+                "loginForm"
+            );
+
+
+        const loginButton =
+            document.getElementById(
+                "loginButton"
+            );
+
+
+        const loginMessage =
+            document.getElementById(
+                "loginMessage"
+            );
+
+
+
+        // =================================================
+        // SHOW MESSAGE
+        // =================================================
+
+        function showMessage(
+            message,
+            type = "error"
+        ) {
+
+            loginMessage.textContent =
+                message;
+
+            loginMessage.className =
+                "login-message";
+
+
+            if (type === "success") {
+
+                loginMessage.classList.add(
+                    "success"
+                );
+
+            }
+
+
+            loginMessage.style.display =
+                "block";
+        }
+
+
+
+        // =================================================
+        // LOGIN
+        // =================================================
+
+        loginForm.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                loginMessage.style.display =
+                    "none";
+
+
+                const email =
+                    document
+                        .getElementById(
+                            "email"
+                        )
+                        .value
+                        .trim();
+
+
+                const password =
+                    document
+                        .getElementById(
+                            "password"
+                        )
+                        .value;
+
+
+                loginButton.disabled =
+                    true;
+
+
+                loginButton.textContent =
+                    "Signing In...";
+
+
+                try {
+
+
+                    const response =
+                        await fetch(
+                            "/api/auth/login",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify({
+                                        email:
+                                            email,
+
+                                        password:
+                                            password
+                                    })
+                            }
+                        );
+
+
+                    const responseText =
+                        await response.text();
+
+
+                    // =====================================
+                    // LOGIN ERROR
+                    // =====================================
+
+                    if (!response.ok) {
+
+                        let errorMessage =
+                            "Invalid email or password";
+
+
+                        try {
+
+                            const errorData =
+                                JSON.parse(
+                                    responseText
+                                );
+
+
+                            if (
+                                errorData.message
+                            ) {
+
+                                errorMessage =
+                                    errorData.message;
+
+                            }
+
+                        }
+
+                        catch (parseError) {
+
+                            if (
+                                responseText
+                            ) {
+
+                                errorMessage =
+                                    responseText;
+
+                            }
+
+                        }
+
+
+                        showMessage(
+                            errorMessage,
+                            "error"
+                        );
+
+
+                        return;
+
+                    }
+
+
+
+                    // =====================================
+                    // LOGIN SUCCESS
+                    // =====================================
+
+                    const user =
+                        JSON.parse(
+                            responseText
+                        );
+
+
+                    // Save only required user information.
+
+                    sessionStorage.setItem(
+                        "userId",
+                        user.id
+                    );
+
+
+                    sessionStorage.setItem(
+                        "userName",
+                        user.name
+                    );
+
+
+                    sessionStorage.setItem(
+                        "userEmail",
+                        user.email
+                    );
+
+
+                    sessionStorage.setItem(
+                        "userRole",
+                        user.role
+                    );
+
+
+                    showMessage(
+                        "Login successful. Redirecting...",
+                        "success"
+                    );
+
+
+                    // =====================================
+                    // REDIRECTION
+                    // =====================================
+
+
+                    setTimeout(
+                        function() {
+
+
+                            // ADMIN
+
+                            if (
+                                user.role ===
+                                "ADMIN"
+                            ) {
+
+                                window.location.href =
+                                    "admin-dashboard.html";
+
+                                return;
+
+                            }
+
+
+                            // USER WITH VEHICLE
+
+                            if (vehicleId) {
+
+                                window.location.href =
+                                    "booking.html?vehicleId=" +
+                                    encodeURIComponent(
+                                        vehicleId
+                                    );
+
+                                return;
+
+                            }
+
+
+                            // NORMAL USER
+
+                            window.location.href =
+                                "vehicles.html";
+
+
+                        },
+                        700
+                    );
+
+                }
+
+
+                catch (error) {
+
+                    console.error(
+                        "Login error:",
+                        error
+                    );
+
+
+                    showMessage(
+                        "Unable to connect to the server. Please try again.",
+                        "error"
+                    );
+
+                }
+
+
+                finally {
+
+                    loginButton.disabled =
+                        false;
+
+                    loginButton.textContent =
+                        "Login to Account";
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

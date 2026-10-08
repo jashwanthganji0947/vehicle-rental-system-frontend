@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Booking Confirmed | Vehicle Rental System</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family: "Inter", sans-serif;
+
+            color: #ffffff;
+
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(0, 234, 255, 0.13),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(155, 92, 255, 0.16),
+                    transparent 32%
+                ),
+                linear-gradient(
+                    135deg,
+                    #050816,
+                    #0a1028 48%,
+                    #09051c
+                );
+        }
+
+        body::before {
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0, 234, 255, 0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    rgba(0, 234, 255, 0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 45px 45px;
+
+            z-index: -1;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            min-height: 78px;
+
+            padding: 18px 55px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background:
+                rgba(5, 8, 22, 0.86);
+
+            border-bottom:
+                1px solid rgba(0, 234, 255, 0.12);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+            backdrop-filter: blur(14px);
+        }
+
+        .logo {
+            text-decoration: none;
+
+            font-size: 24px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #00eaff,
+                    #9b5cff
+                );
+
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+        .nav-links a {
+            color: #aeb8d0;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            padding: 10px 14px;
+
+            border-radius: 10px;
+
+            transition: 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+
+            background:
+                rgba(0, 234, 255, 0.07);
+        }
+
+        .nav-button {
+            border:
+                1px solid rgba(0, 234, 255, 0.25);
+
+            color: #ffffff !important;
+
+            background:
+                rgba(0, 234, 255, 0.05);
+        }
+
+        .nav-button:hover {
+            border-color: #00eaff;
+
+            box-shadow:
+                0 0 20px rgba(0, 234, 255, 0.14);
+        }
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .page {
+            min-height:
+                calc(100vh - 78px);
+
+            padding: 60px 20px 80px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+        .confirmation-container {
+            width: min(900px, 100%);
+        }
+
+        /* =========================
+           MAIN CARD
+        ========================= */
+
+        .confirmation-card {
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 55px;
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(12, 20, 46, 0.96),
+                    rgba(7, 11, 30, 0.98)
+                );
+
+            border:
+                1px solid rgba(255, 255, 255, 0.08);
+
+            box-shadow:
+                0 30px 90px rgba(0, 0, 0, 0.48),
+                0 0 55px rgba(0, 234, 255, 0.05);
+        }
+
+        .confirmation-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            top: -150px;
+            left: -120px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(0, 234, 255, 0.10);
+
+            filter: blur(65px);
+
+            pointer-events: none;
+        }
+
+        .confirmation-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 280px;
+            height: 280px;
+
+            right: -120px;
+            bottom: -150px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(155, 92, 255, 0.12);
+
+            filter: blur(65px);
+
+            pointer-events: none;
+        }
+
+        .card-content {
+            position: relative;
+
+            z-index: 2;
+        }
+
+        /* =========================
+           SUCCESS ICON
+        ========================= */
+
+        .success-icon {
+            width: 86px;
+
+            height: 86px;
+
+            margin: 0 auto 24px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            font-size: 40px;
+
+            font-weight: 800;
+
+            color: #52f0a8;
+
+            background:
+                rgba(52, 211, 153, 0.08);
+
+            border:
+                1px solid rgba(52, 211, 153, 0.30);
+
+            box-shadow:
+                0 0 35px rgba(52, 211, 153, 0.12);
+        }
+
+        /* =========================
+           TITLE
+        ========================= */
+
+        .success-label {
+            text-align: center;
+
+            color: #52f0a8;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.4px;
+
+            margin-bottom: 12px;
+        }
+
+        .page-title {
+            text-align: center;
+
+            font-size: clamp(38px, 6vw, 58px);
+
+            font-weight: 800;
+
+            line-height: 1.05;
+
+            margin-bottom: 14px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #8cefff,
+                    #a87cff
+                );
+
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #8d99b2;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+            margin-bottom: 38px;
+        }
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status-row {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 35px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 8px 14px;
+
+            border-radius: 999px;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.7px;
+        }
+
+        .status-pill::before {
+            content: "●";
+
+            font-size: 8px;
+        }
+
+        .paid {
+            color: #52f0a8;
+
+            background:
+                rgba(52, 211, 153, 0.08);
+
+            border:
+                1px solid rgba(52, 211, 153, 0.22);
+        }
+
+        .confirmed {
+            color: #00eaff;
+
+            background:
+                rgba(0, 234, 255, 0.07);
+
+            border:
+                1px solid rgba(0, 234, 255, 0.22);
+        }
+
+        /* =========================
+           DETAILS
+        ========================= */
+
+        .details-card {
+            padding: 30px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(255, 255, 255, 0.035);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.08);
+
+            margin-bottom: 25px;
+        }
+
+        .details-title {
+            font-size: 21px;
+
+            font-weight: 700;
+
+            margin-bottom: 22px;
+        }
+
+        .details-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 0;
+        }
+
+        .detail-item {
+            padding: 17px 0;
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .detail-item:nth-last-child(-n + 2) {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            display: block;
+
+            margin-bottom: 6px;
+
+            color: #7f8aa3;
+
+            font-size: 12px;
+
+            font-weight: 500;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+            color: #ffffff;
+
+            font-size: 15px;
+
+            font-weight: 600;
+        }
+
+        .booking-number {
+            color: #00eaff;
+
+            font-size: 17px;
+        }
+
+        .amount {
+            font-size: 21px;
+
+            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #00eaff,
+                    #a05cff
+                );
+
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        /* =========================
+           ACTIONS
+        ========================= */
+
+        .actions {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 15px;
+        }
+
+        .action-button {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-height: 50px;
+
+            padding: 13px 18px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            transition: 0.3s ease;
+        }
+
+        .primary-button {
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #087dff,
+                    #6548ff,
+                    #a13cff
+                );
+
+            box-shadow:
+                0 12px 28px rgba(70, 67, 255, 0.18);
+        }
+
+        .primary-button:hover {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 17px 38px rgba(70, 67, 255, 0.30);
+        }
+
+        .secondary-button {
+            color: #c5cee0;
+
+            background:
+                rgba(255, 255, 255, 0.04);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.10);
+        }
+
+        .secondary-button:hover {
+            color: #ffffff;
+
+            border-color:
+                rgba(0, 234, 255, 0.28);
+
+            background:
+                rgba(0, 234, 255, 0.05);
+        }
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        .loading {
+            text-align: center;
+
+            padding: 70px 20px;
+
+            color: #8792ab;
+        }
+
+        .loader {
+            width: 45px;
+
+            height: 45px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 50%;
+
+            border:
+                3px solid rgba(255, 255, 255, 0.08);
+
+            border-top-color:
+                #00eaff;
+
+            animation:
+                spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* =========================
+           ERROR
+        ========================= */
+
+        .error-box {
+            display: none;
+
+            padding: 18px;
+
+            text-align: center;
+
+            color: #ff8b9d;
+
+            background:
+                rgba(255, 77, 109, 0.07);
+
+            border:
+                1px solid rgba(255, 77, 109, 0.20);
+
+            border-radius: 14px;
+
+            font-size: 14px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 750px) {
+
+            .navbar {
+                padding: 18px 22px;
+
+                height: auto;
+
+                flex-direction: column;
+
+                gap: 14px;
+            }
+
+            .page {
+                padding:
+                    30px 15px 50px;
+            }
+
+            .confirmation-card {
+                padding: 35px 24px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-item:nth-last-child(-n + 2) {
+                border-bottom:
+                    1px solid rgba(255, 255, 255, 0.07);
+            }
+
+            .detail-item:last-child {
+                border-bottom: none;
+            }
+
+            .actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .logo {
+                font-size: 21px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+
+                padding: 8px 10px;
+            }
+
+            .page-title {
+                font-size: 38px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .details-card {
+                padding: 22px;
+            }
+
+            .success-icon {
+                width: 72px;
+                height: 72px;
+
+                font-size: 33px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+            Vehicle Rental System
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="vehicles.html">
+                Vehicles
+            </a>
+
+            <a
+                href="my-bookings.html"
+                class="nav-button"
+            >
+                My Bookings
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         PAGE
+    ========================= -->
+
+    <main class="page">
+
+        <div class="confirmation-container">
+
+            <!-- Loading -->
+
+            <div
+                class="confirmation-card"
+                id="loadingCard"
+            >
+
+                <div class="card-content">
+
+                    <div class="loading">
+
+                        <div class="loader"></div>
+
+                        <p>
+                            Loading booking details...
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Error -->
+
+            <div
+                class="confirmation-card"
+                id="errorCard"
+                style="display: none;"
+            >
+
+                <div class="card-content">
+
+                    <div class="error-box" id="errorBox"></div>
+
+                    <div
+                        style="
+                            margin-top: 25px;
+                            text-align: center;
+                        "
+                    >
+
+                        <a
+                            href="my-bookings.html"
+                            class="action-button primary-button"
+                        >
+                            Back to My Bookings
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Confirmation -->
+
+            <div
+                class="confirmation-card"
+                id="confirmationCard"
+                style="display: none;"
+            >
+
+                <div class="card-content">
+
+
+                    <!-- SUCCESS -->
+
+                    <div class="success-icon">
+                        ✓
+                    </div>
+
+
+                    <div class="success-label">
+                        PAYMENT SUCCESSFUL
+                    </div>
+
+
+                    <h1 class="page-title">
+                        Booking Confirmed
+                    </h1>
+
+
+                    <p class="subtitle">
+                        Your vehicle rental has been successfully confirmed.
+                        Your reservation details are shown below.
+                    </p>
+
+
+                    <!-- STATUS -->
+
+                    <div class="status-row">
+
+                        <span
+                            class="status-pill paid"
+                            id="paymentStatus"
+                        >
+                            PAID
+                        </span>
+
+                        <span
+                            class="status-pill confirmed"
+                            id="bookingStatus"
+                        >
+                            CONFIRMED
+                        </span>
+
+                    </div>
+
+
+                    <!-- DETAILS -->
+
+                    <div class="details-card">
+
+                        <h2 class="details-title">
+                            Booking Details
+                        </h2>
+
+
+                        <div class="details-grid">
+
+
+                            <div class="detail-item">
+
+                                <span class="detail-label">
+                                    Booking ID
+                                </span>
+
+                                <span
+                                    class="detail-value booking-number"
+                                    id="bookingId"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span class="detail-label">
+                                    Customer
+                                </span>
+
+                                <span
+                                    class="detail-value"
+                                    id="customerName"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span class="detail-label">
+                                    Vehicle
+                                </span>
+
+                                <span
+                                    class="detail-value"
+                                    id="vehicleName"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span class="detail-label">
+                                    Vehicle Model
+                                </span>
+
+                                <span
+                                    class="detail-value"
+                                    id="vehicleModel"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span class="detail-label">
+                                    Start Date
+                                </span>
+
+                                <span
+                                    class="detail-value"
+                                    id="startDate"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span class="detail-label">
+                                    End Date
+                                </span>
+
+                                <span
+                                    class="detail-value"
+                                    id="endDate"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span class="detail-label">
+                                    Vehicle Registration
+                                </span>
+
+                                <span
+                                    class="detail-value"
+                                    id="registrationNumber"
+                                >
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span class="detail-label">
+                                    Total Amount
+                                </span>
+
+                                <span
+                                    class="amount"
+                                    id="totalAmount"
+                                >
+                                    ₹0
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="actions">
+
+                        <a
+                            href="my-bookings.html"
+                            class="action-button primary-button"
+                        >
+                            View My Bookings
+                        </a>
+
+                        <a
+                            href="vehicles.html"
+                            class="action-button secondary-button"
+                        >
+                            Browse Vehicles
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        /* =========================
+           GET BOOKING ID
+        ========================= */
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const bookingIdFromUrl =
+            urlParams.get("bookingId");
+
+        const storedBookingId =
+            sessionStorage.getItem("bookingId");
+
+        const bookingId =
+            bookingIdFromUrl ||
+            storedBookingId;
+
+
+        /* =========================
+           ELEMENTS
+        ========================= */
+
+        const loadingCard =
+            document.getElementById(
+                "loadingCard"
+            );
+
+        const errorCard =
+            document.getElementById(
+                "errorCard"
+            );
+
+        const confirmationCard =
+            document.getElementById(
+                "confirmationCard"
+            );
+
+        const errorBox =
+            document.getElementById(
+                "errorBox"
+            );
+
+
+        /* =========================
+           FORMAT MONEY
+        ========================= */
+
+        function formatAmount(amount) {
+
+            const number =
+                Number(amount || 0);
+
+            return "₹" +
+                number.toLocaleString(
+                    "en-IN",
+                    {
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 2
+                    }
+                );
+        }
+
+
+        /* =========================
+           ESCAPE HTML
+        ========================= */
+
+        function escapeHtml(value) {
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        /* =========================
+           SHOW ERROR
+        ========================= */
+
+        function showError(message) {
+
+            loadingCard.style.display =
+                "none";
+
+            confirmationCard.style.display =
+                "none";
+
+            errorBox.textContent =
+                message;
+
+            errorBox.style.display =
+                "block";
+
+            errorCard.style.display =
+                "block";
+        }
+
+
+        /* =========================
+           LOAD BOOKING
+        ========================= */
+
+        async function loadBooking() {
+
+            if (!bookingId) {
+
+                showError(
+                    "Booking information was not found."
+                );
+
+                return;
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `/api/bookings/${bookingId}`
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Unable to load booking details."
+                    );
+                }
+
+
+                const booking =
+                    await response.json();
+
+
+                /* =========================
+                   PAYMENT CHECK
+                ========================= */
+
+                if (
+                    String(
+                        booking.paymentStatus || ""
+                    ).toUpperCase() !== "PAID"
+                ) {
+
+                    showError(
+                        "This booking has not been paid yet."
+                    );
+
+                    return;
+                }
+
+
+                /* =========================
+                   VEHICLE
+                ========================= */
+
+                const vehicle =
+                    booking.vehicle || {};
+
+                const user =
+                    booking.user || {};
+
+
+                /* =========================
+                   DISPLAY DATA
+                ========================= */
+
+                document.getElementById(
+                    "bookingId"
+                ).textContent =
+                    "#" +
+                    (booking.id ?? bookingId);
+
+
+                document.getElementById(
+                    "customerName"
+                ).textContent =
+                    user.name ||
+                    sessionStorage.getItem("userName") ||
+                    "Customer";
+
+
+                document.getElementById(
+                    "vehicleName"
+                ).textContent =
+                    vehicle.name ||
+                    "Vehicle";
+
+
+                document.getElementById(
+                    "vehicleModel"
+                ).textContent =
+                    vehicle.model ||
+                    "-";
+
+
+                document.getElementById(
+                    "startDate"
+                ).textContent =
+                    booking.startDate ||
+                    "-";
+
+
+                document.getElementById(
+                    "endDate"
+                ).textContent =
+                    booking.endDate ||
+                    "-";
+
+
+                document.getElementById(
+                    "registrationNumber"
+                ).textContent =
+                    vehicle.registrationNumber ||
+                    "-";
+
+
+                document.getElementById(
+                    "totalAmount"
+                ).textContent =
+                    formatAmount(
+                        booking.totalAmount
+                    );
+
+
+                /* =========================
+                   STATUSES
+                ========================= */
+
+                document.getElementById(
+                    "paymentStatus"
+                ).textContent =
+                    String(
+                        booking.paymentStatus ||
+                        "PAID"
+                    ).toUpperCase();
+
+
+                document.getElementById(
+                    "bookingStatus"
+                ).textContent =
+                    String(
+                        booking.bookingStatus ||
+                        "CONFIRMED"
+                    ).toUpperCase();
+
+
+                /* =========================
+                   SHOW PAGE
+                ========================= */
+
+                loadingCard.style.display =
+                    "none";
+
+                errorCard.style.display =
+                    "none";
+
+                confirmationCard.style.display =
+                    "block";
+
+
+                /* =========================
+                   CLEAN STORED BOOKING
+                ========================= */
+
+                sessionStorage.removeItem(
+                    "bookingId"
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Booking confirmation error:",
+                    error
+                );
+
+
+                showError(
+                    error.message ||
+                    "Unable to load booking confirmation."
+                );
+
+            }
+
+        }
+
+
+        /* =========================
+           START
+        ========================= */
+
+        loadBooking();
+
+    </script>
+
+</body>
+
+</html>

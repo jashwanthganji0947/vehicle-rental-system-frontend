@@ -1,0 +1,2597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Payment | Vehicle Rental System</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        :root {
+            --bg: #070b14;
+            --bg-soft: #0d1322;
+            --card: rgba(16, 23, 39, 0.88);
+            --border: rgba(255, 255, 255, 0.10);
+            --text: #f5f7ff;
+            --muted: #9da7bb;
+            --cyan: #00e5ff;
+            --blue: #3b82f6;
+            --purple: #8b5cf6;
+            --pink: #ec4899;
+            --green: #22c55e;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family: "Inter", sans-serif;
+
+            color: var(--text);
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(0, 229, 255, 0.12),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 90% 20%,
+                    rgba(139, 92, 246, 0.14),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 50% 90%,
+                    rgba(236, 72, 153, 0.08),
+                    transparent 28%
+                ),
+                var(--bg);
+
+            overflow-x: hidden;
+        }
+
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            background:
+                linear-gradient(
+                    rgba(255,255,255,0.015) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.015) 1px,
+                    transparent 1px
+                );
+
+            background-size: 36px 36px;
+
+            mask-image: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.55),
+                transparent 85%
+            );
+        }
+
+
+        /* =====================================================
+           NAVBAR
+           ===================================================== */
+
+        .top-navbar {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            min-height: 78px;
+
+            background: rgba(7, 11, 20, 0.86);
+
+            backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid var(--border);
+
+        }
+
+
+        .nav-inner {
+
+            width: min(1400px, 94%);
+
+            margin: 0 auto;
+
+            min-height: 78px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 24px;
+
+        }
+
+
+        .brand-logo {
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.7px;
+
+        }
+
+
+        .brand-logo span {
+
+            color: var(--cyan);
+
+            text-shadow:
+                0 0 18px rgba(0,229,255,0.55);
+
+        }
+
+
+        .nav-menu {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 28px;
+
+        }
+
+
+        .nav-menu a {
+
+            color: #aeb7c8;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            transition: 0.25s ease;
+
+        }
+
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+
+            color: #ffffff;
+
+            text-shadow:
+                0 0 14px rgba(0,229,255,0.45);
+
+        }
+
+
+        .logout-btn {
+
+            border: 1px solid rgba(255,255,255,0.25);
+
+            background: transparent;
+
+            color: #ffffff;
+
+            border-radius: 10px;
+
+            padding: 10px 18px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+
+        }
+
+
+        .logout-btn:hover {
+
+            border-color: var(--cyan);
+
+            color: var(--cyan);
+
+            box-shadow:
+                0 0 22px rgba(0,229,255,0.18);
+
+        }
+
+
+        /* =====================================================
+           HERO
+           ===================================================== */
+
+        .hero {
+
+            position: relative;
+
+            padding: 72px 20px 58px;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(13,19,34,0.84),
+                    rgba(7,11,20,0.95)
+                );
+
+            border-bottom: 1px solid var(--border);
+
+            overflow: hidden;
+
+        }
+
+
+        .hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 360px;
+
+            height: 360px;
+
+            left: -120px;
+
+            top: -170px;
+
+            border-radius: 50%;
+
+            background: rgba(0,229,255,0.10);
+
+            filter: blur(70px);
+
+        }
+
+
+        .hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 360px;
+
+            height: 360px;
+
+            right: -100px;
+
+            top: -180px;
+
+            border-radius: 50%;
+
+            background: rgba(139,92,246,0.12);
+
+            filter: blur(75px);
+
+        }
+
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+
+        .eyebrow {
+
+            margin-bottom: 15px;
+
+            color: var(--cyan);
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            letter-spacing: 2.6px;
+
+        }
+
+
+        .hero h1 {
+
+            margin: 0;
+
+            font-size: clamp(42px, 6vw, 72px);
+
+            font-weight: 800;
+
+            letter-spacing: -2px;
+
+        }
+
+
+        .hero h1 span {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--cyan),
+                    var(--blue),
+                    var(--purple),
+                    var(--pink)
+                );
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            color: transparent;
+
+        }
+
+
+        .hero p {
+
+            max-width: 720px;
+
+            margin: 18px auto 0;
+
+            color: #b5bfd1;
+
+            font-size: 18px;
+
+        }
+
+
+        /* =====================================================
+           MAIN
+           ===================================================== */
+
+        .page-section {
+
+            width: min(1180px, 94%);
+
+            margin: 0 auto;
+
+            padding: 55px 0 90px;
+
+        }
+
+
+        .payment-layout {
+
+            display: grid;
+
+            grid-template-columns: 0.95fr 1.05fr;
+
+            gap: 28px;
+
+            align-items: start;
+
+        }
+
+
+        .glass-card {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(19,28,47,0.96),
+                    rgba(9,14,25,0.92)
+                );
+
+            border: 1px solid var(--border);
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 20px 65px rgba(0,0,0,0.35),
+                0 0 40px rgba(0,229,255,0.035);
+
+            overflow: hidden;
+
+        }
+
+
+        /* =====================================================
+           BOOKING SUMMARY
+           ===================================================== */
+
+        .summary-header {
+
+            padding: 22px 28px;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #1261ff,
+                    #4c38d9,
+                    #8b2be5
+                );
+
+            box-shadow:
+                0 10px 35px rgba(76,56,217,0.23);
+
+        }
+
+
+        .summary-header h2 {
+
+            margin: 0;
+
+            font-size: 24px;
+
+            font-weight: 800;
+
+        }
+
+
+        .summary-header p {
+
+            margin: 7px 0 0;
+
+            color: rgba(255,255,255,0.78);
+
+            font-size: 13px;
+
+        }
+
+
+        .summary-body {
+
+            padding: 30px;
+
+        }
+
+
+        .summary-title {
+
+            font-size: 32px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.8px;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .summary-subtitle {
+
+            color: var(--muted);
+
+            font-size: 15px;
+
+        }
+
+
+        .divider {
+
+            height: 1px;
+
+            margin: 24px 0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,0.14),
+                    transparent
+                );
+
+        }
+
+
+        .summary-line {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 11px 0;
+
+            color: #aeb8ca;
+
+            font-size: 14px;
+
+        }
+
+
+        .summary-line strong {
+
+            color: #ffffff;
+
+            font-weight: 700;
+
+        }
+
+
+        .summary-total {
+
+            margin-top: 12px;
+
+            padding-top: 18px;
+
+            border-top: 1px solid rgba(255,255,255,0.10);
+
+        }
+
+
+        .summary-total strong {
+
+            font-size: 26px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--cyan),
+                    #8ab4ff,
+                    var(--purple)
+                );
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            color: transparent;
+
+        }
+
+
+        .secure-box {
+
+            margin-top: 22px;
+
+            padding: 17px;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0,229,255,0.055),
+                    rgba(139,92,246,0.06)
+                );
+
+            border: 1px solid rgba(0,229,255,0.12);
+
+            color: #aeb8ca;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+        }
+
+
+        .secure-box strong {
+
+            color: #ffffff;
+
+        }
+
+
+        /* =====================================================
+           PAYMENT
+           ===================================================== */
+
+        .payment-header {
+
+            padding: 22px 28px;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #0b8dff,
+                    #4f46e5,
+                    #9333ea
+                );
+
+            box-shadow:
+                0 10px 35px rgba(79,70,229,0.24);
+
+        }
+
+
+        .payment-header h2 {
+
+            margin: 0;
+
+            font-size: 24px;
+
+            font-weight: 800;
+
+        }
+
+
+        .payment-header p {
+
+            margin: 7px 0 0;
+
+            color: rgba(255,255,255,0.78);
+
+            font-size: 13px;
+
+        }
+
+
+        .payment-body {
+
+            padding: 30px;
+
+        }
+
+
+        .form-label {
+
+            display: block;
+
+            margin-bottom: 9px;
+
+            color: #dce4f3;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .payment-methods {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .method-option {
+
+            position: relative;
+
+        }
+
+
+        .method-option input {
+
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+        }
+
+
+        .method-label {
+
+            min-height: 90px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 13px;
+
+            border-radius: 16px;
+
+            color: #aeb8ca;
+
+            background: rgba(255,255,255,0.035);
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+            cursor: pointer;
+
+            text-align: center;
+
+            transition: 0.25s ease;
+
+        }
+
+
+        .method-icon {
+
+            font-size: 25px;
+
+        }
+
+
+        .method-label strong {
+
+            color: #ffffff;
+
+            font-size: 13px;
+
+        }
+
+
+        .method-option input:checked +
+        .method-label {
+
+            color: #ffffff;
+
+            border-color: var(--cyan);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0,229,255,0.08),
+                    rgba(139,92,246,0.09)
+                );
+
+            box-shadow:
+                0 0 22px rgba(0,229,255,0.10);
+
+        }
+
+
+        .field-group {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .form-control {
+
+            width: 100%;
+
+            min-height: 53px;
+
+            color: #ffffff;
+
+            background: rgba(255,255,255,0.045);
+
+            border: 1px solid rgba(255,255,255,0.10);
+
+            border-radius: 13px;
+
+            padding: 12px 15px;
+
+            font-size: 15px;
+
+        }
+
+
+        .form-control:focus {
+
+            color: #ffffff;
+
+            background: rgba(255,255,255,0.065);
+
+            border-color: var(--cyan);
+
+            box-shadow:
+                0 0 0 3px rgba(0,229,255,0.10),
+                0 0 22px rgba(0,229,255,0.10);
+
+        }
+
+
+        .form-control::placeholder {
+
+            color: #657087;
+
+        }
+
+
+        .field-row {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 14px;
+
+        }
+
+
+        .upi-panel {
+
+            display: none;
+
+            margin-bottom: 20px;
+
+            padding: 18px;
+
+            border-radius: 15px;
+
+            background: rgba(0,229,255,0.045);
+
+            border: 1px solid rgba(0,229,255,0.12);
+
+        }
+
+
+        .upi-panel p {
+
+            margin: 0 0 12px;
+
+            color: #aeb8ca;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+        }
+
+
+        .card-panel {
+
+            display: none;
+
+        }
+
+
+        .cash-panel {
+
+            display: none;
+
+            margin-bottom: 20px;
+
+            padding: 18px;
+
+            border-radius: 15px;
+
+            color: #aeb8ca;
+
+            background: rgba(139,92,246,0.045);
+
+            border: 1px solid rgba(139,92,246,0.14);
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+        }
+
+
+        .pay-button {
+
+            width: 100%;
+
+            min-height: 57px;
+
+            margin-top: 6px;
+
+            border: 0;
+
+            border-radius: 14px;
+
+            color: #ffffff;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #0ea5ff,
+                    #4f46e5,
+                    #9333ea
+                );
+
+            box-shadow:
+                0 12px 32px rgba(79,70,229,0.28);
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+
+        }
+
+
+        .pay-button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 18px 38px rgba(79,70,229,0.38),
+                0 0 22px rgba(0,229,255,0.10);
+
+        }
+
+
+        .pay-button:disabled {
+
+            opacity: 0.65;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+        }
+
+
+        .message {
+
+            display: none;
+
+            margin-top: 17px;
+
+            padding: 14px 16px;
+
+            border-radius: 12px;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .error-message {
+
+            color: #ffb4c0;
+
+            background: rgba(239,68,68,0.08);
+
+            border: 1px solid rgba(239,68,68,0.25);
+
+        }
+
+
+        .success-message {
+
+            color: #a6ffc0;
+
+            background: rgba(34,197,94,0.08);
+
+            border: 1px solid rgba(34,197,94,0.24);
+
+        }
+
+
+        .back-link {
+
+            display: block;
+
+            margin-top: 18px;
+
+            color: #7f8ba3;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        .back-link:hover {
+
+            color: var(--cyan);
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        footer {
+
+            padding: 28px 20px;
+
+            border-top: 1px solid var(--border);
+
+            background: rgba(4,7,13,0.85);
+
+        }
+
+
+        .footer-inner {
+
+            width: min(1180px, 94%);
+
+            margin: 0 auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+        }
+
+
+        .footer-brand {
+
+            color: #ffffff;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.3px;
+
+        }
+
+
+        .footer-text {
+
+            color: #647089;
+
+            font-size: 12px;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .payment-layout {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .top-navbar {
+
+                position: static;
+
+            }
+
+            .nav-inner {
+
+                flex-direction: column;
+
+                padding: 18px 0;
+
+            }
+
+            .nav-menu {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+            }
+
+            .logout-btn {
+
+                display: none;
+
+            }
+
+            .hero {
+
+                padding: 55px 18px 45px;
+
+            }
+
+            .page-section {
+
+                width: 92%;
+
+                padding-top: 35px;
+
+            }
+
+            .summary-body,
+            .payment-body {
+
+                padding: 22px;
+
+            }
+
+            .payment-methods {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .field-row {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .footer-inner {
+
+                flex-direction: column;
+
+                text-align: center;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+         ===================================================== -->
+
+    <nav class="top-navbar">
+
+        <div class="nav-inner">
+
+
+            <a
+                href="index.html"
+                class="brand-logo">
+
+                Vehicle <span>Rental</span>
+
+            </a>
+
+
+            <div class="nav-menu">
+
+                <a href="index.html">
+
+                    Home
+
+                </a>
+
+
+                <a href="vehicles.html">
+
+                    Vehicles
+
+                </a>
+
+
+                <a
+                    href="my-bookings.html"
+                    class="active">
+
+                    My Bookings
+
+                </a>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="logout-btn"
+                onclick="logout()">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="eyebrow">
+
+                SECURE RENTAL CHECKOUT
+
+            </div>
+
+
+            <h1>
+
+                Complete <span>Payment</span>
+
+            </h1>
+
+
+            <p>
+
+                Review your booking and complete the payment process.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="page-section">
+
+        <div class="payment-layout">
+
+
+            <!-- =================================================
+                 BOOKING SUMMARY
+                 ================================================= -->
+
+            <section class="glass-card">
+
+
+                <div class="summary-header">
+
+                    <h2>
+
+                        Booking Summary
+
+                    </h2>
+
+
+                    <p>
+
+                        Review your rental details before payment.
+
+                    </p>
+
+                </div>
+
+
+                <div class="summary-body">
+
+
+                    <div
+                        class="summary-title"
+                        id="vehicleName">
+
+                        Loading...
+
+                    </div>
+
+
+                    <div
+                        class="summary-subtitle"
+                        id="vehicleModel">
+
+                        Loading booking details...
+
+                    </div>
+
+
+                    <div class="divider"></div>
+
+
+                    <div class="summary-line">
+
+                        <span>
+
+                            Booking ID
+
+                        </span>
+
+
+                        <strong id="bookingId">
+
+                            --
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-line">
+
+                        <span>
+
+                            Start Date
+
+                        </span>
+
+
+                        <strong id="startDate">
+
+                            --
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-line">
+
+                        <span>
+
+                            End Date
+
+                        </span>
+
+
+                        <strong id="endDate">
+
+                            --
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-line">
+
+                        <span>
+
+                            Rental Duration
+
+                        </span>
+
+
+                        <strong id="duration">
+
+                            --
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-line">
+
+                        <span>
+
+                            Vehicle Type
+
+                        </span>
+
+
+                        <strong id="vehicleType">
+
+                            --
+
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="summary-line summary-total">
+
+                        <span>
+
+                            Total Amount
+
+                        </span>
+
+
+                        <strong id="totalAmount">
+
+                            ₹0
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="secure-box">
+
+                        <strong>
+
+                            Payment Status
+
+                        </strong>
+
+
+                        <br>
+
+
+                        <span id="currentStatus">
+
+                            Pending payment
+
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PAYMENT
+                 ================================================= -->
+
+            <section class="glass-card">
+
+
+                <div class="payment-header">
+
+                    <h2>
+
+                        Payment Details
+
+                    </h2>
+
+
+                    <p>
+
+                        Select a payment method to continue.
+
+                    </p>
+
+                </div>
+
+
+                <div class="payment-body">
+
+
+                    <form id="paymentForm">
+
+
+                        <label class="form-label">
+
+                            Payment Method
+
+                        </label>
+
+
+                        <div class="payment-methods">
+
+
+                            <div class="method-option">
+
+                                <input
+                                    type="radio"
+                                    id="upi"
+                                    name="paymentMethod"
+                                    value="UPI"
+                                    checked>
+
+
+                                <label
+                                    for="upi"
+                                    class="method-label">
+
+                                    <span class="method-icon">
+
+                                        📱
+
+                                    </span>
+
+                                    <strong>
+
+                                        UPI
+
+                                    </strong>
+
+                                </label>
+
+                            </div>
+
+
+                            <div class="method-option">
+
+                                <input
+                                    type="radio"
+                                    id="card"
+                                    name="paymentMethod"
+                                    value="CARD">
+
+
+                                <label
+                                    for="card"
+                                    class="method-label">
+
+                                    <span class="method-icon">
+
+                                        💳
+
+                                    </span>
+
+                                    <strong>
+
+                                        Card
+
+                                    </strong>
+
+                                </label>
+
+                            </div>
+
+
+                            <div class="method-option">
+
+                                <input
+                                    type="radio"
+                                    id="cash"
+                                    name="paymentMethod"
+                                    value="CASH">
+
+
+                                <label
+                                    for="cash"
+                                    class="method-label">
+
+                                    <span class="method-icon">
+
+                                        💵
+
+                                    </span>
+
+                                    <strong>
+
+                                        Cash
+
+                                    </strong>
+
+                                </label>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- =============================
+                             UPI
+                             ============================= -->
+
+                        <div
+                            id="upiPanel"
+                            class="upi-panel"
+                            style="display: block;">
+
+                            <p>
+
+                                Enter your UPI ID to continue.
+
+                            </p>
+
+
+                            <div class="field-group">
+
+                                <label
+                                    for="upiId"
+                                    class="form-label">
+
+                                    UPI ID
+
+                                </label>
+
+
+                                <input
+                                    type="text"
+                                    id="upiId"
+                                    class="form-control"
+                                    placeholder="example@upi">
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =============================
+                             CARD
+                             ============================= -->
+
+                        <div
+                            id="cardPanel"
+                            class="card-panel">
+
+
+                            <div class="field-group">
+
+                                <label
+                                    for="cardName"
+                                    class="form-label">
+
+                                    Card Holder Name
+
+                                </label>
+
+
+                                <input
+                                    type="text"
+                                    id="cardName"
+                                    class="form-control"
+                                    placeholder="Enter card holder name">
+
+                            </div>
+
+
+                            <div class="field-group">
+
+                                <label
+                                    for="cardNumber"
+                                    class="form-label">
+
+                                    Card Number
+
+                                </label>
+
+
+                                <input
+                                    type="text"
+                                    id="cardNumber"
+                                    class="form-control"
+                                    maxlength="19"
+                                    placeholder="1234 5678 9012 3456">
+
+                            </div>
+
+
+                            <div class="field-row">
+
+
+                                <div class="field-group">
+
+                                    <label
+                                        for="expiry"
+                                        class="form-label">
+
+                                        Expiry
+
+                                    </label>
+
+
+                                    <input
+                                        type="text"
+                                        id="expiry"
+                                        class="form-control"
+                                        maxlength="5"
+                                        placeholder="MM/YY">
+
+                                </div>
+
+
+                                <div class="field-group">
+
+                                    <label
+                                        for="cvv"
+                                        class="form-label">
+
+                                        CVV
+
+                                    </label>
+
+
+                                    <input
+                                        type="password"
+                                        id="cvv"
+                                        class="form-control"
+                                        maxlength="4"
+                                        placeholder="•••">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =============================
+                             CASH
+                             ============================= -->
+
+                        <div
+                            id="cashPanel"
+                            class="cash-panel">
+
+                            <strong>
+
+                                Cash payment selected.
+
+                            </strong>
+
+                            <br><br>
+
+                            Payment will be handled according to your rental
+                            arrangements.
+
+                        </div>
+
+
+
+                        <button
+                            type="submit"
+                            id="payButton"
+                            class="pay-button">
+
+                            Pay Now
+
+                        </button>
+
+
+                        <div
+                            id="message"
+                            class="message">
+
+                        </div>
+
+
+                    </form>
+
+
+                    <a
+                        href="my-bookings.html"
+                        class="back-link">
+
+                        ← Back to My Bookings
+
+                    </a>
+
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <span class="footer-brand">
+
+                VEHICLE RENTAL SYSTEM
+
+            </span>
+
+
+            <span class="footer-text">
+
+                © 2026 Vehicle Rental System
+
+            </span>
+
+        </div>
+
+    </footer>
+
+
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+
+        /*
+         * Get current user.
+         */
+
+        const userId =
+            sessionStorage.getItem("userId");
+
+
+        /*
+         * Get booking ID created
+         * by the booking page.
+         */
+
+        const bookingId =
+            sessionStorage.getItem("bookingId");
+
+
+
+        /*
+         * Elements.
+         */
+
+        const vehicleName =
+            document.getElementById("vehicleName");
+
+
+        const vehicleModel =
+            document.getElementById("vehicleModel");
+
+
+        const bookingIdElement =
+            document.getElementById("bookingId");
+
+
+        const startDateElement =
+            document.getElementById("startDate");
+
+
+        const endDateElement =
+            document.getElementById("endDate");
+
+
+        const durationElement =
+            document.getElementById("duration");
+
+
+        const vehicleTypeElement =
+            document.getElementById("vehicleType");
+
+
+        const totalAmountElement =
+            document.getElementById("totalAmount");
+
+
+        const currentStatusElement =
+            document.getElementById("currentStatus");
+
+
+        const paymentForm =
+            document.getElementById("paymentForm");
+
+
+        const payButton =
+            document.getElementById("payButton");
+
+
+        const messageElement =
+            document.getElementById("message");
+
+
+        const upiPanel =
+            document.getElementById("upiPanel");
+
+
+        const cardPanel =
+            document.getElementById("cardPanel");
+
+
+        const cashPanel =
+            document.getElementById("cashPanel");
+
+
+
+        /*
+         * Require login.
+         */
+
+        if (!userId) {
+
+            window.location.href =
+                "login.html";
+
+        }
+
+
+
+        /*
+         * Require booking ID.
+         */
+
+        if (!bookingId) {
+
+            showMessage(
+                "No booking was found. Please create a booking first.",
+                "error"
+            );
+
+            payButton.disabled = true;
+
+        }
+
+
+
+        /*
+         * Format currency.
+         */
+
+        function formatCurrency(value) {
+
+            return "₹" +
+                Number(value || 0)
+                    .toLocaleString("en-IN");
+
+        }
+
+
+
+        /*
+         * Calculate number of days.
+         */
+
+        function calculateDuration(
+            startDate,
+            endDate
+        ) {
+
+            if (
+                !startDate ||
+                !endDate
+            ) {
+
+                return 0;
+
+            }
+
+
+            const start =
+                new Date(
+                    startDate + "T00:00:00"
+                );
+
+
+            const end =
+                new Date(
+                    endDate + "T00:00:00"
+                );
+
+
+            const difference =
+                end.getTime() -
+                start.getTime();
+
+
+            if (difference < 0) {
+
+                return 0;
+
+            }
+
+
+            return Math.floor(
+                difference /
+                (1000 * 60 * 60 * 24)
+            ) + 1;
+
+        }
+
+
+
+        /*
+         * Load booking details.
+         */
+
+        async function loadBooking() {
+
+            if (!bookingId) {
+
+                return;
+
+            }
+
+
+            try {
+
+
+                const response =
+                    await fetch(
+                        "/api/bookings/" +
+                        encodeURIComponent(
+                            bookingId
+                        )
+                    );
+
+
+                const responseText =
+                    await response.text();
+
+
+                let booking = null;
+
+
+                try {
+
+                    booking =
+                        responseText
+                            ? JSON.parse(responseText)
+                            : null;
+
+                } catch (error) {
+
+                    booking = null;
+
+                }
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        booking?.message ||
+                        responseText ||
+                        "Unable to load booking details."
+                    );
+
+                }
+
+
+                if (!booking) {
+
+                    throw new Error(
+                        "Booking details were not returned."
+                    );
+
+                }
+
+
+                const vehicle =
+                    booking.vehicle || {};
+
+
+                vehicleName.textContent =
+                    vehicle.name ||
+                    "Vehicle Rental";
+
+
+                vehicleModel.textContent =
+                    vehicle.model ||
+                    "Premium Vehicle";
+
+
+                bookingIdElement.textContent =
+                    booking.id ||
+                    bookingId;
+
+
+                startDateElement.textContent =
+                    booking.startDate ||
+                    "--";
+
+
+                endDateElement.textContent =
+                    booking.endDate ||
+                    "--";
+
+
+                const duration =
+                    calculateDuration(
+                        booking.startDate,
+                        booking.endDate
+                    );
+
+
+                durationElement.textContent =
+                    duration +
+                    (
+                        duration === 1
+                            ? " day"
+                            : " days"
+                    );
+
+
+                vehicleTypeElement.textContent =
+                    vehicle.type ||
+                    "--";
+
+
+                totalAmountElement.textContent =
+                    formatCurrency(
+                        booking.totalAmount
+                    );
+
+
+                currentStatusElement.textContent =
+                    booking.paymentStatus === "PAID"
+                        ? "Payment completed"
+                        : "Payment pending";
+
+
+                /*
+                 * Prevent duplicate payment.
+                 */
+
+                if (
+                    booking.paymentStatus ===
+                    "PAID"
+                ) {
+
+                    payButton.disabled = true;
+
+                    payButton.textContent =
+                        "Payment Already Completed";
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Booking loading error:",
+                    error
+                );
+
+
+                showMessage(
+                    error.message ||
+                    "Unable to load booking details.",
+                    "error"
+                );
+
+            }
+
+        }
+
+
+
+        /*
+         * Payment method switching.
+         */
+
+        document
+            .querySelectorAll(
+                'input[name="paymentMethod"]'
+            )
+            .forEach(
+                function (radio) {
+
+                    radio.addEventListener(
+                        "change",
+                        updatePaymentPanels
+                    );
+
+                }
+            );
+
+
+
+        function updatePaymentPanels() {
+
+            const selected =
+                document.querySelector(
+                    'input[name="paymentMethod"]:checked'
+                )?.value;
+
+
+            upiPanel.style.display =
+                selected === "UPI"
+                    ? "block"
+                    : "none";
+
+
+            cardPanel.style.display =
+                selected === "CARD"
+                    ? "block"
+                    : "none";
+
+
+            cashPanel.style.display =
+                selected === "CASH"
+                    ? "block"
+                    : "none";
+
+        }
+
+
+
+        /*
+         * Card number formatting.
+         */
+
+        document
+            .getElementById("cardNumber")
+            .addEventListener(
+                "input",
+                function () {
+
+                    let value =
+                        this.value
+                            .replace(/\D/g, "")
+                            .substring(0, 16);
+
+
+                    value =
+                        value.replace(
+                            /(.{4})/g,
+                            "$1 "
+                        )
+                        .trim();
+
+
+                    this.value = value;
+
+                }
+            );
+
+
+
+        /*
+         * Expiry formatting.
+         */
+
+        document
+            .getElementById("expiry")
+            .addEventListener(
+                "input",
+                function () {
+
+                    let value =
+                        this.value
+                            .replace(/\D/g, "")
+                            .substring(0, 4);
+
+
+                    if (value.length >= 3) {
+
+                        value =
+                            value.substring(0, 2) +
+                            "/" +
+                            value.substring(2);
+
+                    }
+
+
+                    this.value = value;
+
+                }
+            );
+
+
+
+        /*
+         * Payment submission.
+         */
+
+        paymentForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                if (!bookingId) {
+
+                    showMessage(
+                        "No booking ID was found.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                const selectedMethod =
+                    document.querySelector(
+                        'input[name="paymentMethod"]:checked'
+                    )?.value;
+
+
+                /*
+                 * Basic UI validation.
+                 */
+
+                if (selectedMethod === "UPI") {
+
+                    const upiId =
+                        document
+                            .getElementById("upiId")
+                            .value
+                            .trim();
+
+
+                    if (!upiId) {
+
+                        showMessage(
+                            "Please enter your UPI ID.",
+                            "error"
+                        );
+
+                        return;
+
+                    }
+
+                }
+
+
+                if (selectedMethod === "CARD") {
+
+                    const cardName =
+                        document
+                            .getElementById("cardName")
+                            .value
+                            .trim();
+
+
+                    const cardNumber =
+                        document
+                            .getElementById("cardNumber")
+                            .value
+                            .replace(/\s/g, "");
+
+
+                    const expiry =
+                        document
+                            .getElementById("expiry")
+                            .value
+                            .trim();
+
+
+                    const cvv =
+                        document
+                            .getElementById("cvv")
+                            .value
+                            .trim();
+
+
+                    if (
+                        !cardName ||
+                        cardNumber.length < 12 ||
+                        !expiry ||
+                        cvv.length < 3
+                    ) {
+
+                        showMessage(
+                            "Please enter valid card details.",
+                            "error"
+                        );
+
+                        return;
+
+                    }
+
+                }
+
+
+                payButton.disabled = true;
+
+                payButton.textContent =
+                    "Processing Payment...";
+
+
+                try {
+
+
+                    /*
+                     * Existing backend payment API.
+                     */
+
+                    const response =
+                        await fetch(
+                            "/api/payments/" +
+                            encodeURIComponent(
+                                bookingId
+                            ),
+                            {
+                                method: "POST"
+                            }
+                        );
+
+
+                    const responseText =
+                        await response.text();
+
+
+                    let data = null;
+
+
+                    try {
+
+                        data =
+                            responseText
+                                ? JSON.parse(responseText)
+                                : null;
+
+                    } catch (error) {
+
+                        data = null;
+
+                    }
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data?.message ||
+                            data?.error ||
+                            responseText ||
+                            "Payment failed."
+                        );
+
+                    }
+
+
+                    showSuccess(
+                        "Payment successful. Redirecting to booking confirmation..."
+                    );
+
+
+                    currentStatusElement.textContent =
+                        "Payment completed";
+
+
+                    setTimeout(
+                        function () {
+
+                            window.location.href =
+                                "booking-confirmation.html";
+
+                        },
+                        900
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Payment error:",
+                        error
+                    );
+
+
+                    showMessage(
+                        error.message ||
+                        "Unable to process payment.",
+                        "error"
+                    );
+
+
+                    payButton.disabled = false;
+
+                    payButton.textContent =
+                        "Pay Now";
+
+                }
+
+            }
+        );
+
+
+
+        /*
+         * Show error.
+         */
+
+        function showMessage(
+            message,
+            type
+        ) {
+
+            messageElement.textContent =
+                message;
+
+
+            messageElement.className =
+                "message " +
+                (
+                    type === "error"
+                        ? "error-message"
+                        : "success-message"
+                );
+
+
+            messageElement.style.display =
+                "block";
+
+        }
+
+
+
+        /*
+         * Show success.
+         */
+
+        function showSuccess(message) {
+
+            messageElement.textContent =
+                message;
+
+
+            messageElement.className =
+                "message success-message";
+
+
+            messageElement.style.display =
+                "block";
+
+        }
+
+
+
+        /*
+         * Logout.
+         */
+
+        function logout() {
+
+            sessionStorage.clear();
+
+            window.location.href =
+                "login.html";
+
+        }
+
+
+
+        /*
+         * Start page.
+         */
+
+        updatePaymentPanels();
+
+        loadBooking();
+
+    </script>
+
+
+</body>
+
+</html>

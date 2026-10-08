@@ -1,0 +1,2086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vehicle Rental System</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", Arial, sans-serif;
+            background: #050812;
+            color: #ffffff;
+            overflow-x: hidden;
+            animation: pageFade 0.8s ease;
+        }
+
+        @keyframes pageFade {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 72px;
+            z-index: 9999;
+
+            background:
+                rgba(3, 7, 17, 0.82);
+
+            backdrop-filter:
+                blur(18px);
+
+            border-bottom:
+                1px solid rgba(92, 193, 255, 0.10);
+        }
+
+        .nav-inner {
+            width:
+                min(
+                    1380px,
+                    calc(100% - 70px)
+                );
+
+            height: 100%;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            color: white;
+            font-size: 17px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .brand-icon {
+            color: #35d2ff;
+            font-size: 23px;
+
+            filter:
+                drop-shadow(
+                    0 0 9px
+                    rgba(53, 210, 255, 0.7)
+                );
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 46px;
+        }
+
+        .nav-menu a {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+
+            position: relative;
+
+            transition:
+                color 0.25s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #4dd5ff;
+        }
+
+        .nav-menu a.active::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: -21px;
+
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #16c7ff,
+                    #794bff
+                );
+
+            box-shadow:
+                0 0 12px
+                rgba(22, 199, 255, 0.75);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .login-btn {
+            color: white;
+            font-size: 14px;
+
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            transition:
+                color 0.25s ease;
+        }
+
+        .login-btn:hover {
+            color: #51d7ff;
+        }
+
+        .register-btn,
+        .logout-btn {
+            border: none;
+
+            color: white;
+
+            padding:
+                11px 21px;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a63dff,
+                    #177eff
+                );
+
+            font-size: 14px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 25px
+                rgba(61, 109, 255, 0.28);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .register-btn:hover,
+        .logout-btn:hover {
+            color: white;
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 14px 32px
+                rgba(61, 109, 255, 0.43);
+        }
+
+        .logout-btn {
+            display: none;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 780px;
+
+            padding-top: 72px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 80% 35%,
+                    rgba(30, 157, 255, 0.14),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 88% 15%,
+                    rgba(169, 52, 255, 0.13),
+                    transparent 24%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #030711 0%,
+                    #07101d 48%,
+                    #080719 100%
+                );
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 430px;
+            height: 430px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(37, 191, 255, 0.14),
+                    transparent 70%
+                );
+
+            filter: blur(20px);
+
+            top: 130px;
+            right: 15%;
+
+            animation:
+                heroGlow 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(150, 54, 255, 0.12),
+                    transparent 70%
+                );
+
+            filter: blur(20px);
+
+            left: -80px;
+            bottom: -70px;
+
+            animation:
+                smallGlow 7s ease-in-out infinite;
+        }
+
+        @keyframes heroGlow {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.13);
+            }
+        }
+
+        @keyframes smallGlow {
+            0%,
+            100% {
+                transform:
+                    translate(0, 0);
+            }
+
+            50% {
+                transform:
+                    translate(30px, -20px);
+            }
+        }
+
+        .hero-inner {
+            width:
+                min(
+                    1380px,
+                    calc(100% - 70px)
+                );
+
+            min-height: 708px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                44% 56%;
+
+            align-items: center;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+        .hero-text {
+            padding:
+                55px 0;
+
+            position: relative;
+
+            z-index: 5;
+
+            animation:
+                textEnter 1s ease;
+        }
+
+        @keyframes textEnter {
+            from {
+                opacity: 0;
+
+                transform:
+                    translateX(-45px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateX(0);
+            }
+        }
+
+        .hero-label {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                7px 14px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(24, 35, 62, 0.7);
+
+            border:
+                1px solid
+                rgba(74, 205, 255, 0.16);
+
+            color: #a9deff;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 3px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 18px;
+        }
+
+        .hero-label::before {
+            content: "";
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #39d7ff;
+
+            box-shadow:
+                0 0 12px
+                rgba(57, 215, 255, 0.8);
+        }
+
+        .hero-title {
+            font-size:
+                clamp(
+                    55px,
+                    6vw,
+                    92px
+                );
+
+            line-height: 0.94;
+
+            letter-spacing: -4px;
+
+            font-weight: 900;
+
+            color: #ffffff;
+
+            max-width: 650px;
+        }
+
+        .hero-title .gradient-text {
+            display: block;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #42d9ff,
+                    #7650ff,
+                    #e83dff
+                );
+
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .featured-model {
+            margin-top: 21px;
+
+            color: #f3f5fb;
+
+            font-size: 20px;
+
+            font-weight: 600;
+        }
+
+        .featured-model span {
+            color: #48d5ff;
+
+            font-weight: 800;
+        }
+
+        .hero-description {
+            max-width: 530px;
+
+            margin-top: 17px;
+
+            color: #aeb8c8;
+
+            line-height: 1.75;
+
+            font-size: 14px;
+        }
+
+        .hero-buttons {
+            display: flex;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            margin-top: 27px;
+        }
+
+        .primary-button,
+        .outline-button {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 11px;
+
+            padding:
+                14px 25px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .primary-button {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ae3cff,
+                    #1a80ff,
+                    #09c7ff
+                );
+
+            box-shadow:
+                0 12px 28px
+                rgba(38, 111, 255, 0.28);
+        }
+
+        .primary-button:hover {
+            color: white;
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 18px 38px
+                rgba(38, 111, 255, 0.42);
+        }
+
+        .primary-button span {
+            font-size: 21px;
+
+            line-height: 0;
+        }
+
+        .outline-button {
+            color: white;
+
+            border:
+                1px solid
+                rgba(179, 88, 255, 0.72);
+
+            background:
+                rgba(12, 13, 28, 0.28);
+        }
+
+        .outline-button:hover {
+            color: white;
+
+            transform:
+                translateY(-3px);
+
+            background:
+                rgba(99, 53, 170, 0.17);
+        }
+
+        /* =========================
+           HERO BMW FADED BACKGROUND
+        ========================= */
+
+        .hero-car-area {
+            min-height: 580px;
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            overflow: hidden;
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(3, 8, 18, 0.87),
+                    rgba(6, 12, 28, 0.72),
+                    rgba(8, 6, 24, 0.88)
+                ),
+
+                url(
+                    "https://commons.wikimedia.org/wiki/Special:Redirect/file/2020%20BMW%20M4%20Competition.jpg"
+                )
+                center / cover no-repeat;
+
+            box-shadow:
+                inset 0 0 90px
+                rgba(2, 7, 16, 0.68);
+
+            animation:
+                carEnter 1.15s ease;
+        }
+
+        .hero-car-area::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(3, 7, 17, 0.60),
+                    rgba(4, 8, 18, 0.26),
+                    rgba(7, 5, 19, 0.62)
+                );
+
+            z-index: 1;
+        }
+
+        .hero-car-area::after {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                radial-gradient(
+                    circle at 55% 50%,
+                    rgba(0, 234, 255, 0.08),
+                    transparent 43%
+                );
+
+            z-index: 2;
+        }
+
+        @keyframes carEnter {
+            from {
+                opacity: 0;
+
+                transform:
+                    translateX(75px)
+                    scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateX(0)
+                    scale(1);
+            }
+        }
+
+        .car-background-glow {
+            position: absolute;
+
+            width: 650px;
+
+            height: 430px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    ellipse,
+                    rgba(21, 178, 255, 0.24),
+                    rgba(111, 43, 255, 0.12),
+                    transparent 69%
+                );
+
+            filter: blur(30px);
+
+            z-index: 3;
+
+            animation:
+                carGlow 5s ease-in-out infinite;
+        }
+
+        @keyframes carGlow {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+        }
+
+        /* Hide the old foreground BMW image */
+
+        .hero-car-image {
+            display: none;
+        }
+
+        .vehicle-label {
+            position: absolute;
+
+            bottom: 32px;
+
+            left: 32px;
+
+            z-index: 5;
+
+            padding:
+                10px 17px;
+
+            border-radius: 30px;
+
+            color: white;
+
+            background:
+                rgba(4, 9, 21, 0.74);
+
+            backdrop-filter:
+                blur(12px);
+
+            border:
+                1px solid
+                rgba(61, 206, 255, 0.20);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            box-shadow:
+                0 10px 25px
+                rgba(0, 0, 0, 0.25);
+        }
+
+        .vehicle-label strong {
+            color: #48d6ff;
+
+            margin-right: 6px;
+        }
+
+        /* =========================
+           FEATURED VEHICLE STRIP
+        ========================= */
+
+        .vehicle-info-strip {
+            background:
+                linear-gradient(
+                    180deg,
+                    #07111f,
+                    #050914
+                );
+
+            border-top:
+                1px solid
+                rgba(77, 175, 255, 0.08);
+
+            border-bottom:
+                1px solid
+                rgba(77, 175, 255, 0.08);
+
+            padding:
+                25px 0;
+        }
+
+        .vehicle-info-inner {
+            width:
+                min(
+                    1180px,
+                    calc(100% - 70px)
+                );
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 25px;
+
+            flex-wrap: wrap;
+        }
+
+        .vehicle-info-title {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+        .bmw-dot {
+            width: 10px;
+
+            height: 10px;
+
+            border-radius: 50%;
+
+            background: #35ccff;
+
+            box-shadow:
+                0 0 15px
+                rgba(53, 204, 255, 0.7);
+        }
+
+        .vehicle-info-title strong {
+            font-size: 15px;
+        }
+
+        .vehicle-info-title span {
+            color: #8e98aa;
+
+            font-size: 12px;
+        }
+
+        .vehicle-info-action {
+            display: flex;
+
+            gap: 12px;
+
+            align-items: center;
+        }
+
+        /* =========================
+           ABOUT SECTION
+           BMW AS SECOND FADED BACKGROUND
+        ========================= */
+
+        .about-section {
+            min-height: 430px;
+
+            position: relative;
+
+            display: grid;
+
+            grid-template-columns:
+                40% 38% 22%;
+
+            overflow: hidden;
+
+            background: #060b15;
+        }
+
+        .about-section::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(4, 8, 16, 0.91),
+                    rgba(5, 10, 20, 0.80),
+                    rgba(5, 7, 17, 0.93)
+                ),
+
+                url(
+                    "https://commons.wikimedia.org/wiki/Special:Redirect/file/2020%20BMW%20M4%20Competition.jpg"
+                )
+                center / cover no-repeat;
+
+            opacity: 0.20;
+
+            filter:
+                saturate(0.72)
+                contrast(0.84)
+                brightness(1.12);
+
+            z-index: 0;
+        }
+
+        /* Hide old About BMW image */
+
+        .about-image {
+            display: none;
+        }
+
+        .about-content,
+        .details-grid {
+            position: relative;
+
+            z-index: 2;
+        }
+
+        .about-content {
+            grid-column: 1 / 3;
+
+            padding:
+                60px 46px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+        }
+
+        .section-label {
+            color: #70d2ff;
+
+            font-size: 10px;
+
+            letter-spacing: 3px;
+
+            font-weight: 800;
+
+            margin-bottom: 13px;
+        }
+
+        .about-content h2 {
+            font-size: 34px;
+
+            font-weight: 900;
+
+            margin-bottom: 14px;
+        }
+
+        .about-content h2 span {
+            background:
+                linear-gradient(
+                    90deg,
+                    #43d8ff,
+                    #7d45ff
+                );
+
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .about-content p {
+            color: #aeb8c7;
+
+            font-size: 14px;
+
+            line-height: 1.75;
+
+            margin-bottom: 25px;
+        }
+
+        .about-content .primary-button {
+            align-self: flex-start;
+        }
+
+        .details-grid {
+            padding:
+                38px 28px;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 12px;
+
+            align-content: center;
+        }
+
+        .detail-card {
+            min-height: 120px;
+
+            padding: 17px;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(17, 31, 56, 0.92),
+                    rgba(5, 10, 22, 0.93)
+                );
+
+            border:
+                1px solid
+                rgba(115, 137, 180, 0.17);
+
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .detail-card:hover {
+            transform:
+                translateY(-5px);
+
+            border-color:
+                rgba(65, 205, 255, 0.38);
+
+            box-shadow:
+                0 15px 32px
+                rgba(22, 140, 255, 0.08);
+        }
+
+        .detail-icon {
+            color: #41d1ff;
+
+            font-size: 20px;
+
+            margin-bottom: 10px;
+
+            text-shadow:
+                0 0 12px
+                rgba(65, 209, 255, 0.45);
+        }
+
+        .detail-card strong {
+            display: block;
+
+            font-size: 13px;
+
+            margin-bottom: 5px;
+        }
+
+        .detail-card small {
+            color: #8b95a7;
+
+            font-size: 10px;
+        }
+
+        /* =========================
+           RENTAL SECTION
+        ========================= */
+
+        .rental-section {
+            padding:
+                85px 0;
+
+            background:
+                radial-gradient(
+                    circle at 78% 50%,
+                    rgba(102, 42, 255, 0.14),
+                    transparent 28%
+                ),
+
+                #050812;
+        }
+
+        .rental-inner {
+            width:
+                min(
+                    1180px,
+                    calc(100% - 70px)
+                );
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 70px;
+
+            align-items: center;
+        }
+
+        .rental-heading h2 {
+            font-size:
+                clamp(
+                    38px,
+                    4vw,
+                    60px
+                );
+
+            line-height: 1;
+
+            font-weight: 900;
+        }
+
+        .rental-heading h2 span {
+            display: block;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #42d8ff,
+                    #7b46ff,
+                    #ea3fff
+                );
+
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .rental-text p {
+            color: #adb6c5;
+
+            font-size: 14px;
+
+            line-height: 1.75;
+
+            margin-bottom: 24px;
+        }
+
+        .rental-tags {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+        }
+
+        .rental-tags span {
+            padding:
+                8px 14px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(18, 37, 63, 0.45);
+
+            border:
+                1px solid
+                rgba(68, 197, 255, 0.17);
+
+            color: #d6edff;
+
+            font-size: 11px;
+
+            font-weight: 600;
+        }
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta-section {
+            min-height: 360px;
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    rgba(4, 7, 15, 0.55),
+                    rgba(4, 7, 15, 0.78)
+                ),
+
+                url(
+                    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90"
+                )
+                center / cover no-repeat;
+        }
+
+        .cta-overlay {
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(3, 6, 13, 0.20),
+                    rgba(4, 7, 15, 0.66)
+                );
+        }
+
+        .cta-content {
+            position: relative;
+
+            z-index: 2;
+
+            padding:
+                65px 25px;
+        }
+
+        .cta-content h2 {
+            font-size:
+                clamp(
+                    40px,
+                    5vw,
+                    65px
+                );
+
+            font-weight: 900;
+
+            line-height: 1;
+
+            margin:
+                10px 0 16px;
+        }
+
+        .cta-content h2 span {
+            display: block;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #48d9ff,
+                    #9343ff
+                );
+
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .cta-content p {
+            max-width: 680px;
+
+            margin:
+                0 auto 25px;
+
+            color: #e0e5ed;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+        .eyebrow {
+            color: #70d2ff;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 3px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding:
+                23px 35px;
+
+            background: #03060d;
+
+            border-top:
+                1px solid
+                rgba(102, 129, 172, 0.11);
+        }
+
+        .footer-inner {
+            width:
+                min(
+                    1180px,
+                    100%
+                );
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            color: #49d5ff;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+        }
+
+        .footer-text {
+            color: #727d91;
+
+            font-size: 11px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1100px) {
+
+            .nav-menu {
+                gap: 25px;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+
+                min-height: auto;
+            }
+
+            .hero {
+                min-height: auto;
+
+                padding-bottom: 55px;
+            }
+
+            .hero-text {
+                padding-top: 55px;
+            }
+
+            .hero-car-area {
+                min-height: 470px;
+
+                margin-top: 25px;
+            }
+
+            .about-section {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                grid-column: auto;
+            }
+
+            .details-grid {
+                grid-column: auto;
+            }
+
+            .rental-inner {
+                grid-template-columns: 1fr;
+
+                gap: 35px;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .nav-inner {
+                width:
+                    calc(100% - 28px);
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .login-btn {
+                display: none;
+            }
+
+            .nav-actions {
+                gap: 8px;
+            }
+
+            .hero-inner {
+                width:
+                    calc(100% - 28px);
+            }
+
+            .hero-title {
+                font-size: 50px;
+
+                letter-spacing:
+                    -3px;
+            }
+
+            .hero-description {
+                font-size: 13px;
+            }
+
+            .hero-car-area {
+                min-height: 330px;
+            }
+
+            .vehicle-label {
+                bottom: 18px;
+
+                left: 18px;
+            }
+
+            .vehicle-info-inner {
+                width:
+                    calc(100% - 35px);
+            }
+
+            .about-content {
+                padding:
+                    42px 25px;
+            }
+
+            .details-grid {
+                padding: 25px;
+            }
+
+            .rental-inner {
+                width:
+                    calc(100% - 40px);
+            }
+
+            .rental-heading h2 {
+                font-size: 41px;
+            }
+
+            .cta-content h2 {
+                font-size: 40px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="top-navbar">
+
+        <div class="nav-inner">
+
+            <a
+                href="index.html"
+                class="brand-logo"
+            >
+
+                <span class="brand-icon">
+                    🚘
+                </span>
+
+                Vehicle Rental System
+
+            </a>
+
+
+            <div class="nav-menu">
+
+                <a
+                    href="index.html"
+                    class="active"
+                >
+                    Home
+                </a>
+
+                <a
+                    href="vehicles.html"
+                >
+                    Vehicles
+                </a>
+
+                <a
+                    href="my-bookings.html"
+                    id="myBookingsLink"
+                >
+                    My Bookings
+                </a>
+
+            </div>
+
+
+            <div class="nav-actions">
+
+                <a
+                    href="login.html"
+                    id="loginLink"
+                    class="login-btn"
+                >
+
+                    <span>
+                        ♙
+                    </span>
+
+                    Login
+
+                </a>
+
+
+                <a
+                    href="register.html"
+                    id="registerLink"
+                    class="register-btn"
+                >
+                    Register
+                </a>
+
+
+                <button
+                    type="button"
+                    id="logoutButton"
+                    class="logout-btn"
+                    onclick="logout()"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="hero-inner">
+
+
+            <!-- LEFT -->
+
+            <div class="hero-text">
+
+                <div class="hero-label">
+                    PREMIUM VEHICLE RENTAL
+                </div>
+
+
+                <h1 class="hero-title">
+
+                    Vehicle Rental
+
+                    <span class="gradient-text">
+                        System
+                    </span>
+
+                </h1>
+
+
+                <div class="featured-model">
+
+                    Featured Vehicle:
+
+                    <span>
+                        BMW M4 Competition
+                    </span>
+
+                </div>
+
+
+                <p class="hero-description">
+
+                    Explore premium vehicles,
+                    choose your rental dates,
+                    create your booking and
+                    enjoy a smooth vehicle
+                    rental experience.
+
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="vehicles.html"
+                        class="primary-button"
+                    >
+
+                        Browse Vehicles
+
+                        <span>
+                            ›
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="#about"
+                        class="outline-button"
+                    >
+
+                        Explore Details
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT
+                 BMW IS NOW A FADED BACKGROUND -->
+
+            <div class="hero-car-area">
+
+                <div
+                    class="car-background-glow"
+                ></div>
+
+
+                <!-- Old foreground image is hidden -->
+
+                <img
+                    class="hero-car-image"
+                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/2020%20BMW%20M4%20Competition.jpg"
+                    alt="BMW M4 Competition"
+                >
+
+
+                <div class="vehicle-label">
+
+                    <strong>
+                        BMW
+                    </strong>
+
+                    M4 COMPETITION
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FEATURED VEHICLE STRIP
+    ========================= -->
+
+    <section class="vehicle-info-strip">
+
+        <div class="vehicle-info-inner">
+
+            <div class="vehicle-info-title">
+
+                <div class="bmw-dot"></div>
+
+                <strong>
+                    BMW M4 Competition
+                </strong>
+
+                <span>
+                    Featured Rental Vehicle
+                </span>
+
+            </div>
+
+
+            <div class="vehicle-info-action">
+
+                <a
+                    href="vehicles.html"
+                    class="primary-button"
+                >
+
+                    View Vehicle
+
+                    <span>
+                        ›
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ABOUT
+         SECOND BMW IS NOW FADED
+         BACKGROUND
+    ========================= -->
+
+    <section
+        id="about"
+        class="about-section"
+    >
+
+
+        <!-- Old BMW image container hidden -->
+
+        <div class="about-image">
+        </div>
+
+
+        <div class="about-content">
+
+            <p class="section-label">
+
+                FEATURED VEHICLE
+
+            </p>
+
+
+            <h2>
+
+                Vehicle Rental
+
+                <span>
+                    System
+                </span>
+
+            </h2>
+
+
+            <p>
+
+                The BMW M4 Competition is presented
+                as the featured vehicle of the
+                Vehicle Rental System.
+
+                <br>
+                <br>
+
+                Browse the available vehicle,
+                select your rental dates and
+                continue through the booking process.
+
+            </p>
+
+
+            <a
+                href="vehicles.html"
+                class="primary-button"
+            >
+
+                View Vehicles
+
+                <span>
+                    ›
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <!-- INFORMATION CARDS -->
+
+        <div class="details-grid">
+
+
+            <div class="detail-card">
+
+                <div class="detail-icon">
+                    ◆
+                </div>
+
+                <strong>
+                    BMW
+                </strong>
+
+                <small>
+                    Company
+                </small>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-icon">
+                    ◈
+                </div>
+
+                <strong>
+                    M4 Competition
+                </strong>
+
+                <small>
+                    Featured Model
+                </small>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-icon">
+                    ◇
+                </div>
+
+                <strong>
+                    Premium
+                </strong>
+
+                <small>
+                    Vehicle Category
+                </small>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-icon">
+                    ✦
+                </div>
+
+                <strong>
+                    Rental
+                </strong>
+
+                <small>
+                    Booking Available
+                </small>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         RENTAL EXPERIENCE
+    ========================= -->
+
+    <section class="rental-section">
+
+        <div class="rental-inner">
+
+
+            <div class="rental-heading">
+
+                <p class="section-label">
+                    VEHICLE RENTAL
+                </p>
+
+
+                <h2>
+
+                    Your Journey
+
+                    <span>
+                        Starts Here.
+                    </span>
+
+                </h2>
+
+            </div>
+
+
+            <div class="rental-text">
+
+                <p>
+
+                    Select the featured BMW M4 Competition,
+                    choose your dates, complete your booking
+                    and proceed to payment.
+
+                </p>
+
+
+                <div class="rental-tags">
+
+                    <span>
+                        Easy Booking
+                    </span>
+
+                    <span>
+                        Premium Vehicle
+                    </span>
+
+                    <span>
+                        Flexible Dates
+                    </span>
+
+                    <span>
+                        Online Payment
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CTA
+    ========================= -->
+
+    <section class="cta-section">
+
+        <div class="cta-overlay">
+        </div>
+
+
+        <div class="cta-content">
+
+            <p class="eyebrow">
+
+                VEHICLE RENTAL SYSTEM
+
+            </p>
+
+
+            <h2>
+
+                BMW M4
+
+                <span>
+                    COMPETITION
+                </span>
+
+            </h2>
+
+
+            <p>
+
+                Select the featured vehicle
+                and begin your rental booking.
+
+            </p>
+
+
+            <a
+                href="vehicles.html"
+                class="primary-button"
+            >
+
+                Book Now
+
+                <span>
+                    ›
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <span class="footer-brand">
+
+                VEHICLE RENTAL SYSTEM
+
+            </span>
+
+
+            <span class="footer-text">
+
+                © 2026 Vehicle Rental System
+
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         BOOTSTRAP
+    ========================= -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+
+    <!-- =========================
+         LOGIN STATE
+    ========================= -->
+
+    <script>
+
+        const userId =
+            sessionStorage.getItem(
+                "userId"
+            );
+
+
+        const loginLink =
+            document.getElementById(
+                "loginLink"
+            );
+
+
+        const registerLink =
+            document.getElementById(
+                "registerLink"
+            );
+
+
+        const myBookingsLink =
+            document.getElementById(
+                "myBookingsLink"
+            );
+
+
+        const logoutButton =
+            document.getElementById(
+                "logoutButton"
+            );
+
+
+        if (userId) {
+
+            loginLink.style.display =
+                "none";
+
+
+            registerLink.style.display =
+                "none";
+
+
+            myBookingsLink.style.display =
+                "inline";
+
+
+            logoutButton.style.display =
+                "inline-block";
+
+        }
+
+        else {
+
+            loginLink.style.display =
+                "flex";
+
+
+            registerLink.style.display =
+                "inline-block";
+
+
+            myBookingsLink.style.display =
+                "none";
+
+
+            logoutButton.style.display =
+                "none";
+
+        }
+
+
+        function logout() {
+
+            sessionStorage.clear();
+
+
+            window.location.href =
+                "login.html";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Register | Vehicle Rental System</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family: "Inter", sans-serif;
+
+            color: #ffffff;
+
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(0, 234, 255, 0.13),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(155, 92, 255, 0.15),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #050816,
+                    #0b1026 45%,
+                    #09051b
+                );
+        }
+
+        body::before {
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0, 234, 255, 0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    rgba(0, 234, 255, 0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 45px 45px;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            height: 78px;
+
+            padding: 0 55px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            position: relative;
+
+            z-index: 10;
+
+            background:
+                rgba(5, 8, 22, 0.82);
+
+            border-bottom:
+                1px solid rgba(0, 234, 255, 0.12);
+        }
+
+        .logo {
+            text-decoration: none;
+
+            font-size: 24px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.6px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #00eaff,
+                    #9b5cff
+                );
+
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: #aeb7ce;
+
+            text-decoration: none;
+
+            padding: 10px 15px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            transition: 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+
+            background:
+                rgba(0, 234, 255, 0.07);
+        }
+
+        .login-nav {
+            border:
+                1px solid rgba(0, 234, 255, 0.28);
+
+            color: #ffffff !important;
+
+            background:
+                rgba(0, 234, 255, 0.06);
+        }
+
+        .login-nav:hover {
+            border-color: #00eaff !important;
+
+            box-shadow:
+                0 0 20px rgba(0, 234, 255, 0.15);
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .page {
+            min-height:
+                calc(100vh - 78px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 55px 25px;
+        }
+
+        .register-wrapper {
+            width: min(1100px, 100%);
+
+            min-height: 610px;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            background:
+                rgba(9, 14, 35, 0.88);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 28px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 30px 90px rgba(0, 0, 0, 0.48),
+                0 0 60px rgba(0, 234, 255, 0.05);
+        }
+
+        /* =========================
+           LEFT PANEL
+        ========================= */
+
+        .showcase {
+            position: relative;
+
+            padding: 65px 55px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(0, 234, 255, 0.13),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 80% 80%,
+                    rgba(155, 92, 255, 0.15),
+                    transparent 40%
+                ),
+                linear-gradient(
+                    145deg,
+                    #071225,
+                    #0a0b20
+                );
+        }
+
+        .showcase::before {
+            content: "";
+
+            position: absolute;
+
+            width: 280px;
+            height: 280px;
+
+            top: -140px;
+            left: -120px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(0, 234, 255, 0.10);
+
+            filter: blur(65px);
+        }
+
+        .showcase::after {
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            bottom: -130px;
+            right: -100px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(155, 92, 255, 0.12);
+
+            filter: blur(65px);
+        }
+
+        .showcase-content {
+            position: relative;
+
+            z-index: 2;
+        }
+
+        .small-label {
+            display: inline-block;
+
+            margin-bottom: 22px;
+
+            padding: 8px 14px;
+
+            border-radius: 999px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            color: #00eaff;
+
+            background:
+                rgba(0, 234, 255, 0.06);
+
+            border:
+                1px solid rgba(0, 234, 255, 0.24);
+        }
+
+        .showcase h1 {
+            font-size: clamp(42px, 5vw, 65px);
+
+            line-height: 1.03;
+
+            font-weight: 800;
+
+            margin-bottom: 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #8cefff,
+                    #a87cff
+                );
+
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .showcase p {
+            max-width: 470px;
+
+            color: #96a2bc;
+
+            font-size: 16px;
+
+            line-height: 1.8;
+
+            margin-bottom: 35px;
+        }
+
+        .feature-list {
+            display: grid;
+
+            gap: 16px;
+        }
+
+        .feature {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            color: #c9d1e4;
+
+            font-size: 14px;
+        }
+
+        .feature-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 11px;
+
+            color: #00eaff;
+
+            background:
+                rgba(0, 234, 255, 0.07);
+
+            border:
+                1px solid rgba(0, 234, 255, 0.18);
+        }
+
+        /* =========================
+           RIGHT PANEL
+        ========================= */
+
+        .form-panel {
+            padding: 48px 50px;
+
+            display: flex;
+
+            align-items: center;
+
+            background:
+                rgba(7, 11, 28, 0.90);
+        }
+
+        .form-box {
+            width: 100%;
+
+            max-width: 430px;
+
+            margin: auto;
+        }
+
+        .form-header {
+            margin-bottom: 28px;
+        }
+
+        .form-header h2 {
+            font-size: 32px;
+
+            font-weight: 800;
+
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: #8793ad;
+
+            font-size: 14px;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #c8d0e0;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+
+            left: 15px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            font-size: 15px;
+
+            opacity: 0.75;
+
+            pointer-events: none;
+        }
+
+        .form-control {
+            width: 100%;
+
+            height: 50px;
+
+            padding:
+                0 15px 0 43px;
+
+            border-radius: 12px;
+
+            border:
+                1px solid rgba(255, 255, 255, 0.10);
+
+            outline: none;
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            font-family: "Inter", sans-serif;
+
+            background:
+                rgba(255, 255, 255, 0.045);
+
+            transition:
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                background 0.3s ease;
+        }
+
+        .form-control::placeholder {
+            color: #66728b;
+        }
+
+        .form-control:focus {
+            border-color: #00eaff;
+
+            background:
+                rgba(0, 234, 255, 0.035);
+
+            box-shadow:
+                0 0 0 3px rgba(0, 234, 255, 0.08),
+                0 0 20px rgba(0, 234, 255, 0.06);
+        }
+
+        /* =========================
+           PASSWORD NOTE
+        ========================= */
+
+        .password-note {
+            margin-top: 7px;
+
+            font-size: 11px;
+
+            color: #67738d;
+        }
+
+        /* =========================
+           REGISTER BUTTON
+        ========================= */
+
+        .register-btn {
+            width: 100%;
+
+            height: 52px;
+
+            margin-top: 8px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            color: #ffffff;
+
+            font-family: "Inter", sans-serif;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #087dff,
+                    #6548ff,
+                    #a13cff
+                );
+
+            box-shadow:
+                0 12px 30px rgba(70, 67, 255, 0.20);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .register-btn:hover {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 17px 38px rgba(70, 67, 255, 0.32);
+        }
+
+        .register-btn:disabled {
+            opacity: 0.7;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+        /* =========================
+           MESSAGES
+        ========================= */
+
+        .message {
+            display: none;
+
+            margin-bottom: 18px;
+
+            padding: 12px 14px;
+
+            border-radius: 10px;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+        .error-message {
+            color: #ff8b9d;
+
+            background:
+                rgba(255, 77, 109, 0.07);
+
+            border:
+                1px solid rgba(255, 77, 109, 0.20);
+        }
+
+        .success-message {
+            color: #56f3a7;
+
+            background:
+                rgba(52, 211, 153, 0.07);
+
+            border:
+                1px solid rgba(52, 211, 153, 0.20);
+        }
+
+        /* =========================
+           LOGIN LINK
+        ========================= */
+
+        .login-text {
+            margin-top: 22px;
+
+            text-align: center;
+
+            color: #7d89a2;
+
+            font-size: 13px;
+        }
+
+        .login-text a {
+            color: #00eaff;
+
+            text-decoration: none;
+
+            font-weight: 700;
+        }
+
+        .login-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           FOOTER NOTE
+        ========================= */
+
+        .secure-note {
+            margin-top: 24px;
+
+            text-align: center;
+
+            color: #5f6b84;
+
+            font-size: 11px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .navbar {
+                padding: 0 25px;
+            }
+
+            .register-wrapper {
+                grid-template-columns: 1fr;
+
+                max-width: 600px;
+            }
+
+            .showcase {
+                padding: 45px 40px;
+            }
+
+            .showcase h1 {
+                font-size: 48px;
+            }
+
+            .form-panel {
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                height: auto;
+
+                padding: 18px 20px;
+
+                flex-direction: column;
+
+                gap: 14px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+            .page {
+                padding: 25px 15px;
+            }
+
+            .register-wrapper {
+                border-radius: 20px;
+            }
+
+            .showcase {
+                padding: 38px 25px;
+            }
+
+            .showcase h1 {
+                font-size: 40px;
+            }
+
+            .showcase p {
+                font-size: 14px;
+            }
+
+            .form-panel {
+                padding: 30px 22px;
+            }
+
+            .form-header h2 {
+                font-size: 28px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+            Vehicle Rental System
+        </a>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="vehicles.html">
+                Vehicles
+            </a>
+
+            <a
+                href="login.html"
+                class="login-nav"
+            >
+                Login
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         PAGE
+    ========================= -->
+
+    <main class="page">
+
+        <div class="register-wrapper">
+
+
+            <!-- =========================
+                 LEFT SHOWCASE
+            ========================= -->
+
+            <section class="showcase">
+
+                <div class="showcase-content">
+
+                    <div class="small-label">
+                        VEHICLE RENTAL SYSTEM
+                    </div>
+
+                    <h1>
+                        Create Your Account
+                    </h1>
+
+                    <p>
+                        Join our vehicle rental platform and
+                        discover a simple, secure and convenient
+                        way to rent your next vehicle.
+                    </p>
+
+
+                    <div class="feature-list">
+
+                        <div class="feature">
+
+                            <div class="feature-icon">
+                                ✓
+                            </div>
+
+                            <span>
+                                Easy vehicle booking
+                            </span>
+
+                        </div>
+
+
+                        <div class="feature">
+
+                            <div class="feature-icon">
+                                ⚡
+                            </div>
+
+                            <span>
+                                Fast and simple reservations
+                            </span>
+
+                        </div>
+
+
+                        <div class="feature">
+
+                            <div class="feature-icon">
+                                🔒
+                            </div>
+
+                            <span>
+                                Secure account access
+                            </span>
+
+                        </div>
+
+
+                        <div class="feature">
+
+                            <div class="feature-icon">
+                                🚗
+                            </div>
+
+                            <span>
+                                Access to available vehicles
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 REGISTER FORM
+            ========================= -->
+
+            <section class="form-panel">
+
+                <div class="form-box">
+
+
+                    <div class="form-header">
+
+                        <h2>
+                            Sign Up
+                        </h2>
+
+                        <p>
+                            Create your account to start renting vehicles.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Error -->
+
+                    <div
+                        id="errorMessage"
+                        class="message error-message"
+                    ></div>
+
+
+                    <!-- Success -->
+
+                    <div
+                        id="successMessage"
+                        class="message success-message"
+                    ></div>
+
+
+                    <form id="registerForm">
+
+
+                        <!-- NAME -->
+
+                        <div class="form-group">
+
+                            <label for="name">
+                                Full Name
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    👤
+                                </span>
+
+                                <input
+                                    type="text"
+                                    id="name"
+                                    class="form-control"
+                                    placeholder="Enter your full name"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email Address
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    ✉
+                                </span>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    class="form-control"
+                                    placeholder="Enter your email"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="form-group">
+
+                            <label for="phone">
+                                Phone Number
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    ☎
+                                </span>
+
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    class="form-control"
+                                    placeholder="Enter your phone number"
+                                    pattern="[0-9]{10}"
+                                    maxlength="10"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+
+                        <div class="form-group">
+
+                            <label for="password">
+                                Password
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    🔒
+                                </span>
+
+                                <input
+                                    type="password"
+                                    id="password"
+                                    class="form-control"
+                                    placeholder="Create a password"
+                                    minlength="6"
+                                    required
+                                >
+
+                            </div>
+
+                            <div class="password-note">
+                                Password must contain at least 6 characters.
+                            </div>
+
+                        </div>
+
+
+                        <!-- CONFIRM PASSWORD -->
+
+                        <div class="form-group">
+
+                            <label for="confirmPassword">
+                                Confirm Password
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    🔐
+                                </span>
+
+                                <input
+                                    type="password"
+                                    id="confirmPassword"
+                                    class="form-control"
+                                    placeholder="Confirm your password"
+                                    minlength="6"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- REGISTER BUTTON -->
+
+                        <button
+                            type="submit"
+                            id="registerButton"
+                            class="register-btn"
+                        >
+                            Create Account
+                        </button>
+
+
+                    </form>
+
+
+                    <div class="login-text">
+
+                        Already have an account?
+
+                        <a href="login.html">
+                            Login
+                        </a>
+
+                    </div>
+
+
+                    <div class="secure-note">
+                        Your account information is securely processed.
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        const registerForm =
+            document.getElementById("registerForm");
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+        const successMessage =
+            document.getElementById("successMessage");
+
+        const registerButton =
+            document.getElementById("registerButton");
+
+
+        registerForm.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                errorMessage.style.display =
+                    "none";
+
+                successMessage.style.display =
+                    "none";
+
+
+                const name =
+                    document
+                        .getElementById("name")
+                        .value
+                        .trim();
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+                const phone =
+                    document
+                        .getElementById("phone")
+                        .value
+                        .trim();
+
+                const password =
+                    document
+                        .getElementById("password")
+                        .value;
+
+                const confirmPassword =
+                    document
+                        .getElementById("confirmPassword")
+                        .value;
+
+
+                /* =========================
+                   VALIDATION
+                ========================= */
+
+                if (password !== confirmPassword) {
+
+                    errorMessage.textContent =
+                        "Passwords do not match.";
+
+                    errorMessage.style.display =
+                        "block";
+
+                    return;
+                }
+
+
+                if (phone.length !== 10) {
+
+                    errorMessage.textContent =
+                        "Please enter a valid 10-digit phone number.";
+
+                    errorMessage.style.display =
+                        "block";
+
+                    return;
+                }
+
+
+                /* =========================
+                   DISABLE BUTTON
+                ========================= */
+
+                registerButton.disabled =
+                    true;
+
+                registerButton.textContent =
+                    "Creating Account...";
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "/api/auth/register",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify({
+
+                                        name:
+                                            name,
+
+                                        email:
+                                            email,
+
+                                        phone:
+                                            phone,
+
+                                        password:
+                                            password
+
+                                    })
+                            }
+                        );
+
+
+                    const responseText =
+                        await response.text();
+
+
+                    /* =========================
+                       ERROR
+                    ========================= */
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            responseText ||
+                            "Registration failed."
+                        );
+                    }
+
+
+                    /* =========================
+                       SUCCESS
+                    ========================= */
+
+                    successMessage.textContent =
+                        "Account created successfully. Redirecting to login...";
+
+                    successMessage.style.display =
+                        "block";
+
+
+                    registerForm.reset();
+
+
+                    setTimeout(
+                        function() {
+
+                            window.location.href =
+                                "login.html";
+
+                        },
+                        1500
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Registration error:",
+                        error
+                    );
+
+
+                    errorMessage.textContent =
+                        error.message ||
+                        "Unable to create account.";
+
+                    errorMessage.style.display =
+                        "block";
+
+                } finally {
+
+                    registerButton.disabled =
+                        false;
+
+                    registerButton.textContent =
+                        "Create Account";
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
